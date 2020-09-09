@@ -15,6 +15,11 @@ int **create_dyn_board(int size) {
     return matrix;
 }
 
+/***
+ * Using the current time as a randomizer to get positions on the board
+ * @param range number of available cells on the board (ex.:9x9 = 81 possible positions)
+ * @return
+ */
 int *generate_positions_in_board(int range) {
     time_t t;
     srand((unsigned) time(&t));
@@ -24,14 +29,12 @@ int *generate_positions_in_board(int range) {
         final[i - 1] = i;
     }
 
-
     for (int i = 0; i < range; i++) {    // shuffle array
         int temp = final[i];
         int randomIndex = rand() % range;
         final[i] = final[randomIndex];
         final[randomIndex] = temp;
     }
-
     return final;
 }
 
@@ -52,32 +55,30 @@ int **init_random_board(int clues, int size) {
     int *position = generate_positions_in_board(size * size);
 
     int smallest = 5000;
-    int pline = 0, pcolumn = 0, valor = 0;
+    int pline = 0, pcolumn = 0, value = 0;
 
     for (int i = 0; i < clues; i++) {
         for (int n = 0; n < size * size; n++) {
-
-
-            int column = get_column_from_position(position[n], size);
-            int line = get_line_from_position(position[n], size, column);
-
+            int column = get_column_from_position(position[n],
+                                                  size); // positions are randomized through generate_positions_in_board
+            int line = get_line_from_position(position[n], size,
+                                              column); // positions are randomized through generate_positions_in_board
             int number;
 
             if (box_if_almost_full(board, size, line, column, clues) == 0 &&
                 line_is_almost_full(board, size, column) == 0 && column_is_almost_full(board, size, column) == 0) {
                 int n_numbers_allowed = number_of_numbers_allowed_in_this_position(board, line, column, size, &number);
-
                 if (n_numbers_allowed > 0 && n_numbers_allowed < smallest) {
                     smallest = n_numbers_allowed;
                     pline = line;
                     pcolumn = column;
-                    valor = number;
+                    value = number;
                 }
             }
 
         }
-        board[pline][pcolumn] = valor;
-        smallest = 5000, pline = 0, pcolumn = 0, valor = 0;
+        board[pline][pcolumn] = value;
+        smallest = 5000, pline = 0, pcolumn = 0, value = 0;
     }
     return board;
 }
@@ -87,7 +88,7 @@ int box_if_almost_full(int **board, int size, int line, int column, int clues) {
     int number_of_values = 0;
     int almost_full = 0;
 
-    if (clues < (size * size) - (9 * size)) almost_full = 9;
+    if (clues < (size * size) - (8 * size)) almost_full = 9;
     else if (clues < (size * size) - (8 * size)) almost_full = 8;
     else if (clues < (size * size) - (7 * size)) almost_full = 7;
     else if (clues < (size * size) - (6 * size)) almost_full = 6;
@@ -109,7 +110,6 @@ int box_if_almost_full(int **board, int size, int line, int column, int clues) {
 
             if (board[i][j] == 0) {
                 number_of_values++;
-
             }
         }
     }
@@ -159,15 +159,17 @@ void print_board(int **board, int n) {
     int box_size = (int) sqrt(n);
     printf("\nBoard\n");
     for (int i = 0; i < n; ++i) {
+        if (i % box_size == 0)printf("\n");
         printf("|");
         for (int j = 0; j < n; ++j) {
+            if (j % box_size == 0)printf(" ");
             if ((board[i][j] / 10) < 1) {
-                printf("%d|", board[i][j]);
+                printf("%d  ", board[i][j]);
             } else {
-                printf("%d|", board[i][j]);
+                printf("%d ", board[i][j]);
             }
         }
-        printf("\n");
+        printf("|\n");
     }
 }
 
@@ -183,7 +185,7 @@ int ***read_boards_from_txt_and_load_memory(int **size, char string[]) {
 
     fscanf(handler, "%d", &number_of_boards);
 
-    *size = (int*)malloc(sizeof(int)*number_of_boards);
+    *size = (int *) malloc(sizeof(int) * number_of_boards);
 
     //variable to save boards
     int ***memory = malloc(number_of_boards * sizeof(int **));
