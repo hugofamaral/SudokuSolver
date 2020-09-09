@@ -1,0 +1,3 @@
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles/SudokuSolverX.dir
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles/edit_cache.dir

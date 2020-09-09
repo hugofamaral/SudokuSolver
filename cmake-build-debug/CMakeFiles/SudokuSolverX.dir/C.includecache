@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Helpers.c
+library.h
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+string.h
+-
+math.h
+-
+stdbool.h
+-
+stdio.h
+-
+stdbool.h
+-
+
