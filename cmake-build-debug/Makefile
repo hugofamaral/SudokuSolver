@@ -143,6 +143,33 @@ SudokuSolverX/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/build
 .PHONY : SudokuSolverX/fast
 
+BruteForce.o: BruteForce.c.o
+
+.PHONY : BruteForce.o
+
+# target to build an object file
+BruteForce.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/BruteForce.c.o
+.PHONY : BruteForce.c.o
+
+BruteForce.i: BruteForce.c.i
+
+.PHONY : BruteForce.i
+
+# target to preprocess a source file
+BruteForce.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/BruteForce.c.i
+.PHONY : BruteForce.c.i
+
+BruteForce.s: BruteForce.c.s
+
+.PHONY : BruteForce.s
+
+# target to generate assembly for a file
+BruteForce.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/BruteForce.c.s
+.PHONY : BruteForce.c.s
+
 Consistency.o: Consistency.c.o
 
 .PHONY : Consistency.o
@@ -260,6 +287,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... SudokuSolverX"
+	@echo "... BruteForce.o"
+	@echo "... BruteForce.i"
+	@echo "... BruteForce.s"
 	@echo "... Consistency.o"
 	@echo "... Consistency.i"
 	@echo "... Consistency.s"

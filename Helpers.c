@@ -88,7 +88,7 @@ int box_if_almost_full(int **board, int size, int line, int column, int clues) {
     int number_of_values = 0;
     int almost_full = 0;
 
-    if (clues < (size * size) - (8 * size)) almost_full = 9;
+    if (clues < (size * size) - (9 * size)) almost_full = 9;
     else if (clues < (size * size) - (8 * size)) almost_full = 8;
     else if (clues < (size * size) - (7 * size)) almost_full = 7;
     else if (clues < (size * size) - (6 * size)) almost_full = 6;

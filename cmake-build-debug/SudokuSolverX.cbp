@@ -74,6 +74,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/BruteForce.c">
+			<Option target="SudokuSolverX"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Consistency.c">
 			<Option target="SudokuSolverX"/>
 		</Unit>

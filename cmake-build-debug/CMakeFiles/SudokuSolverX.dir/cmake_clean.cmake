@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/SudokuSolverX.dir/BruteForce.c.o"
   "CMakeFiles/SudokuSolverX.dir/Consistency.c.o"
   "CMakeFiles/SudokuSolverX.dir/Helpers.c.o"
   "CMakeFiles/SudokuSolverX.dir/main.c.o"

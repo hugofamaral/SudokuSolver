@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/BruteForce.c" "/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles/SudokuSolverX.dir/BruteForce.c.o"
   "/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Consistency.c" "/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles/SudokuSolverX.dir/Consistency.c.o"
   "/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Helpers.c" "/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles/SudokuSolverX.dir/Helpers.c.o"
   "/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/main.c" "/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles/SudokuSolverX.dir/main.c.o"
