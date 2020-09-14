@@ -98,7 +98,7 @@ int **read_boards(FILE *handler, int size);
  * If something goes wrong it will backtrack and start the process again
  * @return
  */
-bool BruteForce(int **);
+bool BruteForce(int **, int size);
 
 bool FindUnassignedLocation(int **, int *, int *);
 
@@ -107,7 +107,7 @@ bool isSafe(int **grid, int row, int col, int num);
 /******* functional testing *******/
 
 #define SIZE 9
-#define CLUES 40
+#define  CLUES 60
 
 void tests(void);
 
@@ -115,14 +115,12 @@ void tests_R1();
 
 void test_R1_a();
 
-int** test_R1_a_1();
-
 void test_R1_b();
-
-int*** test_R1_b_1();
 
 void tests_R4();
 
-void test_R4_a();
+void test_R4_a_1();
+
+void test_R4_a_2();
 
 #endif //SUDOKUSOLVERX_LIBRARY_H

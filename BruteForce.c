@@ -6,24 +6,24 @@
 /* Takes a partially filled-in grid and attempts to assign values to
   all unassigned locations in such a way to meet the requirements
   for Sudoku solution (non-duplication across rows, columns, and boxes) */
-bool BruteForce(int **grid) {
+bool BruteForce(int **grid,int size) {
     int row, col;
 
     // If there is no unassigned location, we are done
     if (!FindUnassignedLocation(grid, &row, &col))
         return 1; // success!
-    // consider digits 1 to 9
-    for (int num = 1; num <= 9; num++) {
+    for (int num = 1; num <= size; num++) {
         // if looks promising
-        if (check_consistency(grid,SIZE ,row, col, num)) {
+        if (check_consistency(grid,size ,row, col, num)) {
             // make tentative assignment
             *(*(grid + row) + col) = num;
-
+            //printf("Found one\n");
             // return, if success, yay!
-            if (BruteForce(grid))
+            if (BruteForce(grid,size))
                 return 1;
 
             // failure, unmake & try again
+            //printf("Rollback\n");
             *(*(grid + row) + col) = UNASSIGNED;
         }
     }

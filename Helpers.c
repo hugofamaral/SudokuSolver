@@ -88,16 +88,14 @@ int box_if_almost_full(int **board, int size, int line, int column, int clues) {
     int number_of_values = 0;
     int almost_full = 0;
 
-    if (clues < (size * size) - (9 * size)) almost_full = 9;
-    else if (clues < (size * size) - (8 * size)) almost_full = 8;
-    else if (clues < (size * size) - (7 * size)) almost_full = 7;
-    else if (clues < (size * size) - (6 * size)) almost_full = 6;
-    else if (clues < (size * size) - (5 * size)) almost_full = 5;
-    else if (clues < (size * size) - (4 * size)) almost_full = 4;
-    else if (clues < (size * size) - (3 * size)) almost_full = 3;
-    else if (clues < (size * size) - (2 * size)) almost_full = 2;
-    else if (clues < (size * size) - (1 * size)) almost_full = 1;
-    else return 0;
+    for (int i = size; i >= 0; i--) {
+        if (i == 0)
+            return 0;
+        if (clues < (size * size) - (i * size)) {
+            almost_full = i;
+            break;
+        }
+    }
 
     int li = 0, lf = 0, ci = 0, cf = 0;
     li = line - (line % n);
