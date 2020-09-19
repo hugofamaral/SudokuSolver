@@ -80,6 +80,9 @@
 		<Unit filename="/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Consistency.c">
 			<Option target="SudokuSolverX"/>
 		</Unit>
+		<Unit filename="/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/FileManip.c">
+			<Option target="SudokuSolverX"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Helpers.c">
 			<Option target="SudokuSolverX"/>
 		</Unit>

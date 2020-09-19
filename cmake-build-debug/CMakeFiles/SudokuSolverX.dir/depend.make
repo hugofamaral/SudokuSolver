@@ -7,6 +7,9 @@ CMakeFiles/SudokuSolverX.dir/BruteForce.c.o: ../library.h
 CMakeFiles/SudokuSolverX.dir/Consistency.c.o: ../Consistency.c
 CMakeFiles/SudokuSolverX.dir/Consistency.c.o: ../library.h
 
+CMakeFiles/SudokuSolverX.dir/FileManip.c.o: ../FileManip.c
+CMakeFiles/SudokuSolverX.dir/FileManip.c.o: ../library.h
+
 CMakeFiles/SudokuSolverX.dir/Helpers.c.o: ../Helpers.c
 CMakeFiles/SudokuSolverX.dir/Helpers.c.o: ../library.h
 

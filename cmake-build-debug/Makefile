@@ -197,6 +197,33 @@ Consistency.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/Consistency.c.s
 .PHONY : Consistency.c.s
 
+FileManip.o: FileManip.c.o
+
+.PHONY : FileManip.o
+
+# target to build an object file
+FileManip.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/FileManip.c.o
+.PHONY : FileManip.c.o
+
+FileManip.i: FileManip.c.i
+
+.PHONY : FileManip.i
+
+# target to preprocess a source file
+FileManip.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/FileManip.c.i
+.PHONY : FileManip.c.i
+
+FileManip.s: FileManip.c.s
+
+.PHONY : FileManip.s
+
+# target to generate assembly for a file
+FileManip.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/FileManip.c.s
+.PHONY : FileManip.c.s
+
 Helpers.o: Helpers.c.o
 
 .PHONY : Helpers.o
@@ -293,6 +320,9 @@ help:
 	@echo "... Consistency.o"
 	@echo "... Consistency.i"
 	@echo "... Consistency.s"
+	@echo "... FileManip.o"
+	@echo "... FileManip.i"
+	@echo "... FileManip.s"
 	@echo "... Helpers.o"
 	@echo "... Helpers.i"
 	@echo "... Helpers.s"

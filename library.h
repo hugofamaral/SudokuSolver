@@ -17,10 +17,57 @@
 #include <stdbool.h>
 
 #define UNASSIGNED 0
+#define linked_lists 1
 
-// N is used for the size of Sudoku grid. Size will be NxN
-#define N 9
+typedef struct cell {
+    int first_line_box;
+    int first_col_box;
+    int last_line_box;
+    int last_col_box;
+    int main_diagonal; // indicates whether cell belongs to main diagonal or not (0-no;1-yes)
+    int secondary_diagonal; // indicates whether cell belongs to main diagonal or not (0-no;1-yes)
+    int num;
+    int *hints; // possible numbers for a cell
+    int n_hints;
+    int line,col;
+    /// The cell is aware of all of it's neighbours
+    struct cell *north;
+    struct cell *north_east;
+    struct cell *east;
+    struct cell *south_east;
+    struct cell *south;
+    struct cell *south_west;
+    struct cell *west;
+    struct cell *north_west;
+} CELL;
 
+typedef struct board {
+    int size;
+    CELL *pfirst;
+    struct board *prev;
+} BOARD;
+
+typedef struct linkedBoards{
+    BOARD * head;
+    BOARD * tail;
+    BOARD * current;
+    int size;
+}BOARDS;
+
+
+/***
+ * Consistency functions. Will check if the board is okay. If a number can be inserted in a cell or not
+ * */
+
+ /***
+  *
+  * @param board
+  * @param size
+  * @param line
+  * @param column
+  * @param number
+  * @return
+  */
 int check_consistency(int **board, int size, int line, int column, int number);
 
 /**Aux functions for check_consistency*/
@@ -36,7 +83,7 @@ int no_repeated_number_in_secondary_diagonal(int **board, int size, int line, in
 
 
 /***
- * generate a random board with the given range
+ * generates random possitions on the board which will later be converted into line and column so hints can be inserted before solving
  * @param range
  * @return
  */
@@ -92,7 +139,7 @@ int ***read_boards_from_txt_and_load_memory(int **size, char string[]);
  */
 int **read_boards(FILE *handler, int size);
 
-/******* BruteForce         *******/
+/*******************BruteForce**********************/
 /***
  * will attempt to solve the board by assigning a value to an empty cell while checking if it's possible.
  * If something goes wrong it will backtrack and start the process again
@@ -102,8 +149,29 @@ bool BruteForce(int **, int size);
 
 bool FindUnassignedLocation(int **, int *, int *);
 
-bool isSafe(int **grid, int row, int col, int num);
+/*******************R8**********************/
+/* Section for file manipulation:
+ * 1- save solutions to a text file
+ * 2- save solutions to a bin file
+*/
+void save_solutions_txt(char string[], int ** solution, int size);
 
+void save_solutions_bin(char *string, int **solution, int size);
+
+/*******************R9**********************/
+void init_linked_board(BOARD *board);
+
+BOARDS read_boards_from_txt_and_load_memory_linked(int **size, char string[]);
+
+BOARD read_boards_from_txt_linked(int **, char[]);
+
+void fill_board_linked(BOARD *, int **);
+
+int add_node_to_Boards(BOARDS *boards, BOARD *board);
+
+void print_board_linked(BOARD *tab);
+
+BOARDS *init_Boards();
 /******* functional testing *******/
 
 #define SIZE 9
@@ -122,5 +190,13 @@ void tests_R4();
 void test_R4_a_1();
 
 void test_R4_a_2();
+
+void tests_R8();
+
+void test_R8_1();
+
+void test_R8_2();
+
+void tests_R9();
 
 #endif //SUDOKUSOLVERX_LIBRARY_H

@@ -3,4 +3,4 @@ project(SudokuSolverX C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(SudokuSolverX main.c library.h Helpers.c Consistency.c tests.c BruteForce.c)
+add_executable(SudokuSolverX main.c library.h Helpers.c Consistency.c tests.c BruteForce.c FileManip.c)
