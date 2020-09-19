@@ -515,7 +515,7 @@ void print_board_linked(BOARD *tab) {
             for (int col = 0; col < tab->size; ++col) {
                 if (col % n == 0)printf(" ");
                 if ((current->num / 10) <
-                    1) { // testa se é um inteiro de dois ou um digito para a impressao ficar centrada
+                    1) {
                     printf("%d  ", current->num);
                 } else {
                     printf("%d ", current->num);
@@ -540,14 +540,12 @@ int add_node_to_Boards(BOARDS *boards, BOARD *board) {
         return 0;
     }
 
-    //a queue esta vazia
     board->prev = NULL;
-    if (boards->size == 0) {
+    if (boards->head == NULL) {
         boards->head = board;
         boards->tail = board;
 
     } else {
-        // adicionar tabuleiro ao fim da queue
         boards->tail->prev = board;
         boards->tail = board;
     }

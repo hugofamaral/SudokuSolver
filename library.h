@@ -199,4 +199,6 @@ void test_R8_2();
 
 void tests_R9();
 
+void tests_R10();
+
 #endif //SUDOKUSOLVERX_LIBRARY_H

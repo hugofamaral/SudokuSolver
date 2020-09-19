@@ -9,6 +9,7 @@ void tests(void) {
     //tests_R4(); // brute forcing boards
     //tests_R8();
     tests_R9();
+    tests_R10();
 }
 
 void tests_R1() {
@@ -111,6 +112,18 @@ void tests_R9() {
     int *size;
     int i = 0;
     BOARD board = read_boards_from_txt_linked(&size, "C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
-
     print_board_linked(&board);
+}
+
+void tests_R10() {
+    int *size;
+    int i = 0;
+    BOARDS boards = read_boards_from_txt_and_load_memory_linked(&size,
+                                                                "C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
+    boards.current = boards.tail;
+    while (i < boards.size) {
+        print_board_linked(boards.head);
+        boards.current = boards.tail->prev;
+        i++;
+    }
 }
