@@ -17,7 +17,6 @@
 #include <stdbool.h>
 
 #define UNASSIGNED 0
-#define linked_lists 1
 
 typedef struct cell {
     int first_line_box;
@@ -29,7 +28,7 @@ typedef struct cell {
     int num;
     int *hints; // possible numbers for a cell
     int n_hints;
-    int line,col;
+    int line, col;
     /// The cell is aware of all of it's neighbours
     struct cell *north;
     struct cell *north_east;
@@ -44,50 +43,64 @@ typedef struct cell {
 typedef struct board {
     int size;
     CELL *pfirst;
-    struct board *prev;
+    struct board *next;
 } BOARD;
 
-typedef struct linkedBoards{
-    BOARD * head;
-    BOARD * tail;
-    BOARD * current;
+typedef struct linkedBoards {
+    BOARD *head;
+    BOARD *current;
     int size;
-}BOARDS;
+} BOARDS;
 
 
 /***
  * Consistency functions. Will check if the board is okay. If a number can be inserted in a cell or not
  * */
 
- /***
-  *
-  * @param board
-  * @param size
-  * @param line
-  * @param column
-  * @param number
-  * @return
-  */
-int check_consistency(int **board, int size, int line, int column, int number);
+/***
+ *
+ * @param board
+ * @param size
+ * @param line
+ * @param column
+ * @param number
+ * @return
+ */
+int check_consistency(int **, int , int , int , int );
 
 /**Aux functions for check_consistency*/
-int no_repeated_number_in_line(int **board, int size, int line, int valor);
+int no_repeated_number_in_line(int **, int, int , int );
 
-int no_repeated_number_in_column(int **board, int size, int column, int valor);
+int no_repeated_number_in_column(int **, int, int , int );
 
-int no_repeated_number_in_box(int **board, int size, int line, int column, int valor);
+int no_repeated_number_in_box(int **, int, int, int, int);
 
-int no_repeated_number_in_principal_diagonal(int **board, int size, int line, int column, int valor);
+int no_repeated_number_in_principal_diagonal(int **, int, int, int, int);
 
-int no_repeated_number_in_secondary_diagonal(int **board, int size, int line, int column, int valor);
+int no_repeated_number_in_secondary_diagonal(int **, int, int, int, int);
 
+int check_if_num_possible(CELL *, BOARD *, int);
+
+int no_repeated_num_in_line(CELL *, BOARD *, int);
+
+int no_repeated_num_in_column(CELL *, BOARD *, int);
+
+int no_repeated_num_in_box(CELL *, int);
+
+int no_repeated_num_in_main_diagonal(CELL *, BOARD *, int);
+
+int no_repeated_num_in_secondary_diagonal(CELL *, BOARD *, int);
+
+int add_node_to_Boards(BOARDS *,BOARD *);
+
+void put_current_cel_in_place(CELL **, int, int);
 
 /***
- * generates random possitions on the board which will later be converted into line and column so hints can be inserted before solving
+ * generates random positions on the board which will later be converted into line and column so hints can be inserted before solving
  * @param range
  * @return
  */
-int *generate_positions_in_board(int range);
+int *generate_positions_in_board(int);
 
 /***
  * gets the column from the relative position on the board
@@ -95,7 +108,7 @@ int *generate_positions_in_board(int range);
  * @param size
  * @return
  */
-int get_column_from_position(int position, int size);
+int get_column_from_position(int, int);
 
 /***
  * gets the line from the relative position on the board
@@ -104,7 +117,7 @@ int get_column_from_position(int position, int size);
  * @param column
  * @return
  */
-int get_line_from_position(int position, int size, int column);
+int get_line_from_position(int, int, int);
 
 
 /***
@@ -113,23 +126,23 @@ int get_line_from_position(int position, int size, int column);
  * @param size
  * @return
  */
-int **init_random_board(int clues, int size);
+int **init_random_board(int, int);
 
 /*** Aux functions for the init_random_board*/
-int **create_dyn_board(int size);
+int **create_dyn_board(int);
 
-int box_if_almost_full(int **board, int size, int line, int column, int clues);
+int box_if_almost_full(int **, int, int, int, int);
 
-int column_is_almost_full(int **board, int size, int column);
+int column_is_almost_full(int **, int, int);
 
-int line_is_almost_full(int **board, int size, int column);
+int line_is_almost_full(int **, int, int);
 
-int number_of_numbers_allowed_in_this_position(int **board, int line, int column, int size, int *value);
+int number_of_numbers_allowed_in_this_position(int **, int, int, int, int *);
 
-void print_board(int **board, int n);
+void print_board(int **, int);
 
 /** function to read the boards from file*/
-int ***read_boards_from_txt_and_load_memory(int **size, char string[]);
+int ***read_boards_from_txt_and_load_memory(int **, char []);
 
 /***
  *
@@ -137,7 +150,7 @@ int ***read_boards_from_txt_and_load_memory(int **size, char string[]);
  * @param size
  * @return
  */
-int **read_boards(FILE *handler, int size);
+int **read_boards(FILE *, int);
 
 /*******************BruteForce**********************/
 /***
@@ -145,33 +158,36 @@ int **read_boards(FILE *handler, int size);
  * If something goes wrong it will backtrack and start the process again
  * @return
  */
-bool BruteForce(int **, int size);
+bool BruteForce(int **, int);
 
 bool FindUnassignedLocation(int **, int *, int *);
+
+bool BruteForce_linked(BOARD *, CELL *);
+
+bool complete(BOARD *, CELL **);
 
 /*******************R8**********************/
 /* Section for file manipulation:
  * 1- save solutions to a text file
  * 2- save solutions to a bin file
 */
-void save_solutions_txt(char string[], int ** solution, int size);
+void save_solutions_txt(char [], int **, int);
 
-void save_solutions_bin(char *string, int **solution, int size);
+void save_solutions_bin(char *, int **, int);
 
-/*******************R9**********************/
-void init_linked_board(BOARD *board);
+/*******************R9 onward**********************/
+void init_linked_board(BOARD *);
 
-BOARDS read_boards_from_txt_and_load_memory_linked(int **size, char string[]);
+BOARDS read_boards_from_txt_and_load_memory_linked(char []);
 
-BOARD read_boards_from_txt_linked(int **, char[]);
+BOARD read_boards_from_txt_linked(char[]);
 
 void fill_board_linked(BOARD *, int **);
 
-int add_node_to_Boards(BOARDS *boards, BOARD *board);
+void print_board_linked(BOARD *);
 
-void print_board_linked(BOARD *tab);
+BOARDS *init_boards();
 
-BOARDS *init_Boards();
 /******* functional testing *******/
 
 #define SIZE 9
@@ -201,4 +217,5 @@ void tests_R9();
 
 void tests_R10();
 
+void tests_R12();
 #endif //SUDOKUSOLVERX_LIBRARY_H

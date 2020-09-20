@@ -6,6 +6,18 @@
 
 #IncludeRegexTransform: 
 
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/BruteForce.c
+library.h
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Consistency.c
+library.h
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/FileManip.c
+library.h
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+
 /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Helpers.c
 library.h
 /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
@@ -27,4 +39,16 @@ stdio.h
 -
 stdbool.h
 -
+
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/main.c
+stdio.h
+-
+stdlib.h
+-
+library.h
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/tests.c
+library.h
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
 

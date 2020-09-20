@@ -431,15 +431,15 @@ void init_linked_board(BOARD *board) {
     }
 }
 
-BOARD read_boards_from_txt_linked(int **size, char string[]) {
+BOARD read_boards_from_txt_linked(char string[]) {
     int size_board;
     FILE *handler = fopen(string, "r");
 
-    fscanf(handler, "%d");
+    fscanf(handler, "");
 
     int **pointer_board;
 
-    BOARD board = {0, NULL, NULL};
+    BOARD board = {0, NULL};
     fscanf(handler, "%d", &size_board);
 
     board.size = size_board;
@@ -454,7 +454,7 @@ BOARD read_boards_from_txt_linked(int **size, char string[]) {
     return board;
 }
 
-BOARDS read_boards_from_txt_and_load_memory_linked(int **size, char string[]) {
+BOARDS read_boards_from_txt_and_load_memory_linked(char string[]) {
     int number_of_boards;
     int i = 0;
     int size_board;
@@ -462,23 +462,21 @@ BOARDS read_boards_from_txt_and_load_memory_linked(int **size, char string[]) {
 
     fscanf(handler, "%d", &number_of_boards);
 
-    BOARDS *boards = init_Boards();
+    BOARDS *boards = init_boards();
     int **pointer_board;
 
     while (i != number_of_boards) {
         fscanf(handler, "%d", &size_board);
 
-        *(*(size) + i) = size_board;
-        BOARD board = {size_board, NULL, NULL};
+        BOARD board = {size_board, NULL};
         init_linked_board(&board);
         pointer_board = read_boards(handler, size_board);
 
         fill_board_linked(&board, pointer_board);
         add_node_to_Boards(boards, &board);
         i++;
+        free(pointer_board);
     }
-    free(pointer_board);
-    *(size + i) = '\0';
 
     fclose(handler);
     return *boards;
@@ -494,7 +492,6 @@ void fill_board_linked(BOARD *board, int **pointer_board) {
             current->num = *(*(pointer_board + line) + col);
             current = current->east;
         }
-        printf("\n");
         pline = pline->south;
         current = pline;
     }
@@ -505,7 +502,7 @@ void print_board_linked(BOARD *tab) {
     int n = (int) sqrt(tab->size);
 
     if (tab != NULL) {
-        printf("BOARD:\n");
+        printf("Board:\n");
         CELL *current, *pline;
         pline = tab->pfirst;
         current = tab->pfirst;
@@ -514,8 +511,7 @@ void print_board_linked(BOARD *tab) {
             printf("|");
             for (int col = 0; col < tab->size; ++col) {
                 if (col % n == 0)printf(" ");
-                if ((current->num / 10) <
-                    1) {
+                if ((current->num / 10) < 1) {
                     printf("%d  ", current->num);
                 } else {
                     printf("%d ", current->num);
@@ -525,43 +521,36 @@ void print_board_linked(BOARD *tab) {
             }
 
             printf("|\n");
-            if (pline->south != NULL) {
-                pline = pline->south;
-                current = pline;
-            }
+            pline = pline->south;
+            current = pline;
         }
     } else {
-        printf("EMPTY !\n");
+        printf("No board!\n");
     }
 }
 
 int add_node_to_Boards(BOARDS *boards, BOARD *board) {
-    if ((boards == NULL) || (board == NULL)) {
-        return 0;
-    }
 
-    board->prev = NULL;
     if (boards->head == NULL) {
         boards->head = board;
-        boards->tail = board;
-
+        boards->head->next = NULL;
+        return 1;
     } else {
-        boards->tail->prev = board;
-        boards->tail = board;
+        boards->head->next = boards->head;
+        boards->head = board;
     }
     boards->size++;
     return 1;
 }
 
-BOARDS *init_Boards() {
-    BOARDS *boards = (BOARDS *) malloc(sizeof(BOARDS));
-    if (boards == NULL) {
+BOARDS *init_boards() {
+    BOARDS *queue = (BOARDS *) malloc(sizeof(BOARDS));
+    if (queue == NULL) {
         return NULL;
     }
 
-    boards->size = 0;
-    boards->head = NULL;
-    boards->tail = NULL;
+    queue->size = 0;
+    queue->head = NULL;
 
-    return boards;
+    return queue;
 }
