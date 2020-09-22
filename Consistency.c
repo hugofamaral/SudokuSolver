@@ -101,7 +101,7 @@ int check_if_num_possible(CELL *cell, BOARD *board, int num) {
 }
 
 
-int no_repeated_num_in_line(CELL *ref, BOARD *tab, int num) {
+int no_repeated_num_in_line(CELL *ref, BOARD *board, int num) {
 
     CELL *current = ref;
     int col = current->col;
@@ -109,7 +109,7 @@ int no_repeated_num_in_line(CELL *ref, BOARD *tab, int num) {
         put_current_cel_in_place(&current, current->line, 0);
     }
 
-    for (int i = 0; i < tab->size; i++) {
+    for (int i = 0; i < board->size; i++) {
         if (current->num == num) {
             return 0;
         }
@@ -164,14 +164,14 @@ int no_repeated_num_in_box(CELL  *ref, int num) {
 }
 
 
-int no_repeated_num_in_main_diagonal(CELL *ref, BOARD *tab, int num) {
+int no_repeated_num_in_main_diagonal(CELL *ref, BOARD *board, int num) {
     CELL *current = ref;
 
     if (current->main_diagonal == 0) {
         return 1;
     } else {
-        current = tab->pfirst;
-        for (int i = 0; i < tab->size; i++) {
+        current = board->pfirst;
+        for (int i = 0; i < board->size; i++) {
             if (current->num == num) {
                 return 0;
             }
@@ -181,15 +181,15 @@ int no_repeated_num_in_main_diagonal(CELL *ref, BOARD *tab, int num) {
     }
 }
 
-int no_repeated_num_in_secondary_diagonal(CELL *ref, BOARD *tab, int num) {
+int no_repeated_num_in_secondary_diagonal(CELL *ref, BOARD *board, int num) {
     CELL *current = ref;
 
     if (current->secondary_diagonal == 0) {
         return 1;
     } else {
-        current = tab->pfirst;
-        put_current_cel_in_place(&current, 0, tab->size - 1);
-        for (int i = 0; i < tab->size; i++) {
+        current = board->pfirst;
+        put_current_cel_in_place(&current, 0, board->size - 1);
+        for (int i = 0; i < board->size; i++) {
             if (current->num == num) {
                 return 0;
             }

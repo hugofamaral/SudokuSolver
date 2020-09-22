@@ -155,6 +155,45 @@ CMakeFiles/SudokuSolverX.dir/FileManip.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SudokuSolverX.dir/FileManip.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/FileManip.c -o CMakeFiles/SudokuSolverX.dir/FileManip.c.s
 
+CMakeFiles/SudokuSolverX.dir/strategies.c.o: CMakeFiles/SudokuSolverX.dir/flags.make
+CMakeFiles/SudokuSolverX.dir/strategies.c.o: ../strategies.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/SudokuSolverX.dir/strategies.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/SudokuSolverX.dir/strategies.c.o   -c /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/strategies.c
+
+CMakeFiles/SudokuSolverX.dir/strategies.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SudokuSolverX.dir/strategies.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/strategies.c > CMakeFiles/SudokuSolverX.dir/strategies.c.i
+
+CMakeFiles/SudokuSolverX.dir/strategies.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SudokuSolverX.dir/strategies.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/strategies.c -o CMakeFiles/SudokuSolverX.dir/strategies.c.s
+
+CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o: CMakeFiles/SudokuSolverX.dir/flags.make
+CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o: ../hidden_singles.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o   -c /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/hidden_singles.c
+
+CMakeFiles/SudokuSolverX.dir/hidden_singles.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SudokuSolverX.dir/hidden_singles.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/hidden_singles.c > CMakeFiles/SudokuSolverX.dir/hidden_singles.c.i
+
+CMakeFiles/SudokuSolverX.dir/hidden_singles.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SudokuSolverX.dir/hidden_singles.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/hidden_singles.c -o CMakeFiles/SudokuSolverX.dir/hidden_singles.c.s
+
+CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o: CMakeFiles/SudokuSolverX.dir/flags.make
+CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o: ../naked_pairs.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o   -c /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/naked_pairs.c
+
+CMakeFiles/SudokuSolverX.dir/naked_pairs.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SudokuSolverX.dir/naked_pairs.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/naked_pairs.c > CMakeFiles/SudokuSolverX.dir/naked_pairs.c.i
+
+CMakeFiles/SudokuSolverX.dir/naked_pairs.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SudokuSolverX.dir/naked_pairs.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/naked_pairs.c -o CMakeFiles/SudokuSolverX.dir/naked_pairs.c.s
+
 # Object files for target SudokuSolverX
 SudokuSolverX_OBJECTS = \
 "CMakeFiles/SudokuSolverX.dir/main.c.o" \
@@ -162,7 +201,10 @@ SudokuSolverX_OBJECTS = \
 "CMakeFiles/SudokuSolverX.dir/Consistency.c.o" \
 "CMakeFiles/SudokuSolverX.dir/tests.c.o" \
 "CMakeFiles/SudokuSolverX.dir/BruteForce.c.o" \
-"CMakeFiles/SudokuSolverX.dir/FileManip.c.o"
+"CMakeFiles/SudokuSolverX.dir/FileManip.c.o" \
+"CMakeFiles/SudokuSolverX.dir/strategies.c.o" \
+"CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o" \
+"CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o"
 
 # External object files for target SudokuSolverX
 SudokuSolverX_EXTERNAL_OBJECTS =
@@ -173,9 +215,12 @@ SudokuSolverX.exe: CMakeFiles/SudokuSolverX.dir/Consistency.c.o
 SudokuSolverX.exe: CMakeFiles/SudokuSolverX.dir/tests.c.o
 SudokuSolverX.exe: CMakeFiles/SudokuSolverX.dir/BruteForce.c.o
 SudokuSolverX.exe: CMakeFiles/SudokuSolverX.dir/FileManip.c.o
+SudokuSolverX.exe: CMakeFiles/SudokuSolverX.dir/strategies.c.o
+SudokuSolverX.exe: CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o
+SudokuSolverX.exe: CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o
 SudokuSolverX.exe: CMakeFiles/SudokuSolverX.dir/build.make
 SudokuSolverX.exe: CMakeFiles/SudokuSolverX.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable SudokuSolverX.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable SudokuSolverX.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SudokuSolverX.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

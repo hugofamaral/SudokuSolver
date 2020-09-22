@@ -13,8 +13,17 @@ CMakeFiles/SudokuSolverX.dir/FileManip.c.o: ../library.h
 CMakeFiles/SudokuSolverX.dir/Helpers.c.o: ../Helpers.c
 CMakeFiles/SudokuSolverX.dir/Helpers.c.o: ../library.h
 
+CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o: ../hidden_singles.c
+CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o: ../library.h
+
 CMakeFiles/SudokuSolverX.dir/main.c.o: ../library.h
 CMakeFiles/SudokuSolverX.dir/main.c.o: ../main.c
+
+CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o: ../library.h
+CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o: ../naked_pairs.c
+
+CMakeFiles/SudokuSolverX.dir/strategies.c.o: ../library.h
+CMakeFiles/SudokuSolverX.dir/strategies.c.o: ../strategies.c
 
 CMakeFiles/SudokuSolverX.dir/tests.c.o: ../library.h
 CMakeFiles/SudokuSolverX.dir/tests.c.o: ../tests.c

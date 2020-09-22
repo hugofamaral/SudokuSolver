@@ -251,6 +251,33 @@ Helpers.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/Helpers.c.s
 .PHONY : Helpers.c.s
 
+hidden_singles.o: hidden_singles.c.o
+
+.PHONY : hidden_singles.o
+
+# target to build an object file
+hidden_singles.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o
+.PHONY : hidden_singles.c.o
+
+hidden_singles.i: hidden_singles.c.i
+
+.PHONY : hidden_singles.i
+
+# target to preprocess a source file
+hidden_singles.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/hidden_singles.c.i
+.PHONY : hidden_singles.c.i
+
+hidden_singles.s: hidden_singles.c.s
+
+.PHONY : hidden_singles.s
+
+# target to generate assembly for a file
+hidden_singles.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/hidden_singles.c.s
+.PHONY : hidden_singles.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -277,6 +304,60 @@ main.s: main.c.s
 main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/main.c.s
 .PHONY : main.c.s
+
+naked_pairs.o: naked_pairs.c.o
+
+.PHONY : naked_pairs.o
+
+# target to build an object file
+naked_pairs.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o
+.PHONY : naked_pairs.c.o
+
+naked_pairs.i: naked_pairs.c.i
+
+.PHONY : naked_pairs.i
+
+# target to preprocess a source file
+naked_pairs.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/naked_pairs.c.i
+.PHONY : naked_pairs.c.i
+
+naked_pairs.s: naked_pairs.c.s
+
+.PHONY : naked_pairs.s
+
+# target to generate assembly for a file
+naked_pairs.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/naked_pairs.c.s
+.PHONY : naked_pairs.c.s
+
+strategies.o: strategies.c.o
+
+.PHONY : strategies.o
+
+# target to build an object file
+strategies.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/strategies.c.o
+.PHONY : strategies.c.o
+
+strategies.i: strategies.c.i
+
+.PHONY : strategies.i
+
+# target to preprocess a source file
+strategies.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/strategies.c.i
+.PHONY : strategies.c.i
+
+strategies.s: strategies.c.s
+
+.PHONY : strategies.s
+
+# target to generate assembly for a file
+strategies.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/strategies.c.s
+.PHONY : strategies.c.s
 
 tests.o: tests.c.o
 
@@ -326,9 +407,18 @@ help:
 	@echo "... Helpers.o"
 	@echo "... Helpers.i"
 	@echo "... Helpers.s"
+	@echo "... hidden_singles.o"
+	@echo "... hidden_singles.i"
+	@echo "... hidden_singles.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... naked_pairs.o"
+	@echo "... naked_pairs.i"
+	@echo "... naked_pairs.s"
+	@echo "... strategies.o"
+	@echo "... strategies.i"
+	@echo "... strategies.s"
 	@echo "... tests.o"
 	@echo "... tests.i"
 	@echo "... tests.s"

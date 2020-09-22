@@ -13,9 +13,18 @@ CMakeFiles/SudokuSolverX.dir/FileManip.c.o
 CMakeFiles/SudokuSolverX.dir/Helpers.c.o
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Helpers.c
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/hidden_singles.c
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
 CMakeFiles/SudokuSolverX.dir/main.c.o
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/main.c
+CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/naked_pairs.c
+CMakeFiles/SudokuSolverX.dir/strategies.c.o
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/strategies.c
 CMakeFiles/SudokuSolverX.dir/tests.c.o
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/tests.c

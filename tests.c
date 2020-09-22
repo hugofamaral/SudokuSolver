@@ -9,8 +9,9 @@ void tests(void) {
     //tests_R4(); // brute forcing boards
     //tests_R8();
     //tests_R9();
-    tests_R10();
+    //tests_R10();
     //tests_R12();
+    tests_R13();
 }
 
 void tests_R1() {
@@ -117,7 +118,8 @@ void tests_R9() {
 void tests_R10() {
     int *size;
     int i = 0;
-    BOARDS boards = read_boards_from_txt_and_load_memory_linked("C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
+    BOARDS boards = read_boards_from_txt_and_load_memory_linked(
+            "C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
     boards.current = boards.head;
     while (i < boards.size) {
         print_board_linked(boards.current);
@@ -128,9 +130,19 @@ void tests_R10() {
 
 void tests_R12() {
     BOARD board = read_boards_from_txt_linked("C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
-    if (BruteForce_linked(&board, board.pfirst)) {
+    if (bruteForce_linked(&board, board.pfirst)) {
         print_board_linked(&board);
     } else {
+        printf("\nUnsolvable ");
+        print_board_linked(&board);
+    }
+}
+
+void tests_R13() {
+    BOARD board = read_boards_from_txt_linked("C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
+    if (strategy_solving(&board))
+        print_board_linked(&board);
+    else {
         printf("\nUnsolvable ");
         print_board_linked(&board);
     }

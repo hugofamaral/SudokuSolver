@@ -66,12 +66,12 @@ typedef struct linkedBoards {
  * @param number
  * @return
  */
-int check_consistency(int **, int , int , int , int );
+int check_consistency(int **, int, int, int, int);
 
 /**Aux functions for check_consistency*/
-int no_repeated_number_in_line(int **, int, int , int );
+int no_repeated_number_in_line(int **, int, int, int);
 
-int no_repeated_number_in_column(int **, int, int , int );
+int no_repeated_number_in_column(int **, int, int, int);
 
 int no_repeated_number_in_box(int **, int, int, int, int);
 
@@ -91,7 +91,7 @@ int no_repeated_num_in_main_diagonal(CELL *, BOARD *, int);
 
 int no_repeated_num_in_secondary_diagonal(CELL *, BOARD *, int);
 
-int add_node_to_Boards(BOARDS *,BOARD *);
+int add_node_to_Boards(BOARDS *, BOARD *);
 
 void put_current_cel_in_place(CELL **, int, int);
 
@@ -162,7 +162,7 @@ bool BruteForce(int **, int);
 
 bool FindUnassignedLocation(int **, int *, int *);
 
-bool BruteForce_linked(BOARD *, CELL *);
+bool bruteForce_linked(BOARD *, CELL *);
 
 bool complete(BOARD *, CELL **);
 
@@ -187,6 +187,22 @@ void fill_board_linked(BOARD *, int **);
 void print_board_linked(BOARD *);
 
 BOARDS *init_boards();
+
+/******* strategy based board solving *******/
+
+bool strategy_solving(BOARD *);
+
+void find_mask(BOARD *);
+
+void print_mask(BOARD *);
+
+/******* hidden single strategy *******/
+
+bool single_candidate_in_cel(BOARD *);
+
+bool single_candidate_in_box_for_cel(BOARD *);
+
+bool repeated_candidate_in_box(CELL *, int);
 
 /******* functional testing *******/
 
@@ -218,4 +234,7 @@ void tests_R9();
 void tests_R10();
 
 void tests_R12();
+
+void tests_R13();
+
 #endif //SUDOKUSOLVERX_LIBRARY_H

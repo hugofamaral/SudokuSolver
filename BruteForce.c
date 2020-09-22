@@ -42,7 +42,7 @@ bool FindUnassignedLocation(int **grid, int *row, int *col) {
 }
 
 
-bool BruteForce_linked(BOARD *board, CELL *current) {
+bool bruteForce_linked(BOARD *board, CELL *current) {
     if (complete(board, &current) == true)
         return true; // success!
 
@@ -56,7 +56,7 @@ bool BruteForce_linked(BOARD *board, CELL *current) {
             current->num = num;
 
             // return, if success, yay!
-            if (BruteForce_linked(board, board->pfirst))
+            if (bruteForce_linked(board, board->pfirst))
                 return true;
 
             // failure, unmake & try again
