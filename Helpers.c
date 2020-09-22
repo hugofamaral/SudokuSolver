@@ -603,7 +603,7 @@ void print_mask(BOARD *board) {
             if (current->num != 0) {
                 printf("Number: %d ", current->num);
             } else {
-                printf("number of possibilities: %d: ",current->n_hints);
+                printf("Number of possibilities: %d: ",current->n_hints);
 
                 for (int k = 0; k < current->n_hints; k++) {
                     printf("%d ", *(current->hints+ k));

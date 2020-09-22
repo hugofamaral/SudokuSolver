@@ -204,6 +204,38 @@ bool single_candidate_in_box_for_cel(BOARD *);
 
 bool repeated_candidate_in_box(CELL *, int);
 
+void delete_same_in_other_cells_of_box_single(BOARD **, CELL *);
+
+void delete_same_in_other_cells_of_main_diagonal_single(BOARD **,  CELL *);
+
+void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD **,  CELL *);
+
+void delete_same_in_other_cells_of_line_single(BOARD **,  CELL *);
+
+void delete_same_in_other_cells_of_col_single(BOARD **, CELL *);
+
+
+void delete_num_from_hints(CELL **, int );
+
+/******* hidden pairs strategy *******/
+
+bool naked_pairs(BOARD *);
+
+CELL *find_second_pair(BOARD *, CELL *);
+
+void delete_same_in_other_cells_of_box(BOARD **, CELL *, CELL *);
+
+void delete_same_in_other_cells_of_main_diagonal(BOARD **, CELL *, CELL *);
+
+void delete_same_in_other_cells_of_secondary_diagonal(BOARD **, CELL *, CELL *);
+
+void delete_same_in_other_cells_of_line(BOARD **, CELL *, CELL *);
+
+void delete_same_in_other_cells_of_col(BOARD **, CELL *, CELL *);
+
+void delete_num_from_hints(CELL **, int );
+
+
 /******* functional testing *******/
 
 #define SIZE 9
