@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/hidden_singles.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
 /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
 stdio.h
 -
@@ -27,4 +23,8 @@ stdio.h
 -
 stdbool.h
 -
+
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/strategies.c
+library.h
+/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
 

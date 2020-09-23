@@ -6,11 +6,11 @@
 /***
  * iterates the whole board looking for cells that might have the same pair as possible solutions. Deleting that pair
  * from the other cells since those must go into those cells
- * @param tab
+ * @param board
  * @return
  */
-bool naked_pairs(BOARD *tab) {
-    CELL *current = tab->pfirst;
+bool naked_pairs(BOARD *board) {
+    CELL *current = board->pfirst;
     CELL *pline = current;
 
     CELL *first_pair = NULL;
@@ -18,36 +18,36 @@ bool naked_pairs(BOARD *tab) {
 
     int updated = 0;
 
-    for (int i = 0; i < tab->size; i++) {
-        for (int j = 0; j < tab->size; j++) {
+    for (int i = 0; i < board->size; i++) {
+        for (int j = 0; j < board->size; j++) {
 
             if (current->n_hints == 2) {
                 first_pair = current;
 
-                second_pair = find_second_pair(tab, first_pair);
+                second_pair = find_second_pair(board, first_pair);
 
                 if (second_pair != NULL) {
                     int assigned = 0;
                     if (first_pair->first_line_box == second_pair->first_line_box &&
                         first_pair->first_col_box == second_pair->first_col_box) {
                         assigned++;
-                        delete_same_in_other_cells_of_box(&tab, first_pair, second_pair);
+                        delete_same_in_other_cells_of_box(&board, first_pair, second_pair);
                     }
                     if (first_pair->main_diagonal == true && second_pair->main_diagonal == true) {
                         assigned++;
-                        delete_same_in_other_cells_of_main_diagonal(&tab, first_pair, second_pair);
+                        delete_same_in_other_cells_of_main_diagonal(&board, first_pair, second_pair);
                     }
                     if (first_pair->secondary_diagonal == true && second_pair->secondary_diagonal == true) {
                         assigned++;
-                        delete_same_in_other_cells_of_secondary_diagonal(&tab, first_pair, second_pair);
+                        delete_same_in_other_cells_of_secondary_diagonal(&board, first_pair, second_pair);
                     }
                     if (first_pair->line == second_pair->line) {
                         assigned++;
-                        delete_same_in_other_cells_of_line(&tab, first_pair, second_pair);
+                        delete_same_in_other_cells_of_line(&board, first_pair, second_pair);
                     }
                     if (first_pair->col == second_pair->col) {
                         assigned++;
-                        delete_same_in_other_cells_of_col(&tab, first_pair, second_pair);
+                        delete_same_in_other_cells_of_col(&board, first_pair, second_pair);
                     }
 
                     if (assigned > 0) {
@@ -259,22 +259,22 @@ void delete_same_in_other_cells_of_col(BOARD **board, CELL *first_pair, CELL *se
 
 /***
  * after a pair is identified this function will try to find a matching pair
- * @param tab
+ * @param board
  * @param first_pair
  * @return
  */
-CELL *find_second_pair(BOARD *tab, CELL *first_pair) {
+CELL *find_second_pair(BOARD *board, CELL *first_pair) {
 
     CELL *current = first_pair->east;
-    if (first_pair->line == tab->size - 1 && first_pair->col == tab->size - 1)
+    if (first_pair->line == board->size - 1 && first_pair->col == board->size - 1)
         return NULL; //If it's in the last pair and it hasn't found the pair yet there is no need to find anything
     if (current == NULL)
         current = first_pair->south;
     CELL *pline = current;
 
 
-    for (int i = current->line; i < tab->size; i++) {
-        for (int j = current->col; j < tab->size; j++) {
+    for (int i = current->line; i < board->size; i++) {
+        for (int j = current->col; j < board->size; j++) {
 
             if (current->n_hints == 2 && *(current->hints) == *(first_pair->hints) &&
                 *(current->hints + 1) == *(first_pair->hints +

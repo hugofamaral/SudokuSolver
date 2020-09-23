@@ -222,16 +222,16 @@ int **read_boards(FILE *handler, int size) {
 
 /*******************R9**********************/
 
-void init_linked_board(BOARD *tab){
+void init_linked_board(BOARD *board){
 
-    int n = (int)sqrt(tab->size);
+    int n = (int)sqrt(board->size);
     CELL *current = malloc(sizeof(CELL)), *prevLine, *prevCol;
-    tab->pfirst = current;
-    prevCol = tab->pfirst;
-    prevLine = tab->pfirst;
+    board->pfirst = current;
+    prevCol = board->pfirst;
+    prevLine = board->pfirst;
 
-    for (int line = 0; line < tab->size; ++line) {
-        for (int col = 0; col < tab->size; ++col) {
+    for (int line = 0; line < board->size; ++line) {
+        for (int col = 0; col < board->size; ++col) {
 
 
             if (line == 0 && col == 0) {
@@ -255,7 +255,7 @@ void init_linked_board(BOARD *tab){
                 current->west = NULL;
                 current->north_west = NULL;
             }
-            if (line == 0 && col != 0 && col != tab->size - 1) {
+            if (line == 0 && col != 0 && col != board->size - 1) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 0;
                 current->num = 0;
@@ -275,7 +275,7 @@ void init_linked_board(BOARD *tab){
                 current->west = prevCol;
                 current->north_west = NULL;
             }
-            if (line == 0 && col == tab->size - 1) {
+            if (line == 0 && col == board->size - 1) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 1;
                 current->num = 0;
@@ -295,7 +295,7 @@ void init_linked_board(BOARD *tab){
                 current->west = prevCol;
                 current->north_west = NULL;
             }
-            if (line != 0 && col == 0 && line != tab->size - 1) {
+            if (line != 0 && col == 0 && line != board->size - 1) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 0;
                 current->num = 0;
@@ -315,12 +315,12 @@ void init_linked_board(BOARD *tab){
                 current->west = NULL;
                 current->north_west = NULL;
             }
-            if (line != 0 && col != 0 && col != tab->size - 1) {
+            if (line != 0 && col != 0 && col != board->size - 1) {
                 if(line == col) {
                     current->main_diagonal = 1;
                 }else { current->main_diagonal = 0;}
 
-                if(line == tab->size -1 - col) {
+                if(line == board->size - 1 - col) {
                     current->secondary_diagonal = 1;
                 }else{ current->secondary_diagonal = 0;}
 
@@ -341,7 +341,7 @@ void init_linked_board(BOARD *tab){
                 current->west = prevCol;
                 current->north_west = prevCol->north;
             }
-            if (line != 0 && col != 0 && col == tab->size - 1 ) {
+            if (line != 0 && col != 0 && col == board->size - 1 ) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 0;
                 current->num = 0;
@@ -361,7 +361,7 @@ void init_linked_board(BOARD *tab){
                 current->west = prevCol;
                 current->north_west = prevCol->north;
             }
-            if (line == tab->size - 1 && col == 0) {
+            if (line == board->size - 1 && col == 0) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 1;
                 current->num = 0;
@@ -381,7 +381,7 @@ void init_linked_board(BOARD *tab){
                 current->west = NULL;
                 current->north_west = NULL;
             }
-            if (line == tab->size - 1 && col != 0 && col != tab->size - 1) {
+            if (line == board->size - 1 && col != 0 && col != board->size - 1) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 0;
                 current->num = 0;
@@ -401,7 +401,7 @@ void init_linked_board(BOARD *tab){
                 current->west = prevCol;
                 current->north_west = prevCol->north;
             }
-            if (line == tab->size - 1 && col != 0 && col == tab->size - 1) {
+            if (line == board->size - 1 && col != 0 && col == board->size - 1) {
                 current->main_diagonal = 1;
                 current->secondary_diagonal = 0;
                 current->num = 0;

@@ -204,18 +204,22 @@ bool single_candidate_in_box_for_cel(BOARD *);
 
 bool repeated_candidate_in_box(CELL *, int);
 
+bool repeated_candidate_in_line(BOARD *, CELL *, int);
+
+bool repeated_candidate_in_col(BOARD *, CELL *, int);
+
 void delete_same_in_other_cells_of_box_single(BOARD **, CELL *);
 
-void delete_same_in_other_cells_of_main_diagonal_single(BOARD **,  CELL *);
+void delete_same_in_other_cells_of_main_diagonal_single(BOARD **, CELL *);
 
-void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD **,  CELL *);
+void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD **, CELL *);
 
-void delete_same_in_other_cells_of_line_single(BOARD **,  CELL *);
+void delete_same_in_other_cells_of_line_single(BOARD **, CELL *);
 
 void delete_same_in_other_cells_of_col_single(BOARD **, CELL *);
 
 
-void delete_num_from_hints(CELL **, int );
+void delete_num_from_hints(CELL **, int);
 
 /******* hidden pairs strategy *******/
 
@@ -233,7 +237,7 @@ void delete_same_in_other_cells_of_line(BOARD **, CELL *, CELL *);
 
 void delete_same_in_other_cells_of_col(BOARD **, CELL *, CELL *);
 
-void delete_num_from_hints(CELL **, int );
+void delete_num_from_hints(CELL **, int);
 
 
 /******* functional testing *******/

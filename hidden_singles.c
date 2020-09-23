@@ -6,27 +6,28 @@
 /***
  * iterates over the whole board searching for single hints. If it finds one it will the update that cell to the hint
  * value.
- * @param tab
+ * @param board
  * @return
  */
-bool single_candidate_in_cel(BOARD *tab) {
+bool single_candidate_in_cel(BOARD *board) {
 
-    CELL *current = tab->pfirst;
+    CELL *current = board->pfirst;
     CELL *pline = current;
 
-    for (int i = 0; i < tab->size; i++) {
-        for (int j = 0; j < tab->size; j++) {
+    for (int i = 0; i < board->size; i++) {
+        for (int j = 0; j < board->size; j++) {
             if (current->n_hints == 1) {
                 current->num = *(current->hints);
-                delete_same_in_other_cells_of_box_single(&tab, current);
+                delete_same_in_other_cells_of_box_single(&board, current);
                 if (current->main_diagonal)
-                    delete_same_in_other_cells_of_main_diagonal_single(&tab, current);
+                    delete_same_in_other_cells_of_main_diagonal_single(&board, current);
                 if (current->secondary_diagonal)
-                    delete_same_in_other_cells_of_secondary_diagonal_single(&tab, current);
-                delete_same_in_other_cells_of_line_single(&tab, current);
-                delete_same_in_other_cells_of_col_single(&tab, current);
+                    delete_same_in_other_cells_of_secondary_diagonal_single(&board, current);
+                delete_same_in_other_cells_of_line_single(&board, current);
+                delete_same_in_other_cells_of_col_single(&board, current);
                 current->n_hints = 0;
                 free(current->hints);
+                printf("Single solution on [%d,%d]->%d\n\n", current->line + 1, current->col + 1, current->num);
                 return true;
             }
             current = current->east;
@@ -51,8 +52,22 @@ bool single_candidate_in_box_for_cel(BOARD *board) {
         for (int j = 0; j < board->size; j++) {
             if (current->n_hints != 0) {
                 for (int k = 0; k < current->n_hints; k++) {
-                    if (repeated_candidate_in_box(current, *(current->hints + k) == false)) {
+                    if (!repeated_candidate_in_box(current, *(current->hints + k)) ||
+                        !repeated_candidate_in_line(board, current, *(current->hints + k)) ||
+                        !repeated_candidate_in_col(board, current, *(current->hints + k))) {
+                        print_mask(board);
                         current->num = *(current->hints + k);
+                        delete_same_in_other_cells_of_box_single(&board, current);
+                        if (current->main_diagonal)
+                            delete_same_in_other_cells_of_main_diagonal_single(&board, current);
+                        if (current->secondary_diagonal)
+                            delete_same_in_other_cells_of_secondary_diagonal_single(&board, current);
+                        delete_same_in_other_cells_of_line_single(&board, current);
+                        delete_same_in_other_cells_of_col_single(&board, current);
+                        current->n_hints = 0;
+                        free(current->hints);
+                        printf("Hidden single solution on [%d,%d]->%d\n\n", current->line + 1, current->col + 1,
+                               current->num);
                         return true;
                     }
                 }
@@ -83,10 +98,10 @@ bool repeated_candidate_in_box(CELL *cel, int number) {
 
     for (int i = li; i <= lf; i++) {
         for (int j = ci; j <= cf; j++) {
-
-            if (current->n_hints != 0)
+            if (current->n_hints != 0 && (current->line != cel->line || current->col != cel->col))
                 for (int k = 0; k < current->n_hints; k++) {
-                    if (*(current->hints + k) == number) return true;
+                    if (*(current->hints + k) == number)
+                        return true;
                 }
             current = current->east;
         }
@@ -94,6 +109,52 @@ bool repeated_candidate_in_box(CELL *cel, int number) {
         current = pline;
     }
 
+    return false;
+}
+
+/***
+ * searches the other for a value that might be alone in the line. Making it the only solution for a cell
+ * @param cel
+ * @param number
+ * @return
+ */
+bool repeated_candidate_in_line(BOARD *board, CELL *cel, int number) {
+
+    CELL *current = cel;
+    int col = current->col;
+    if (col != 0) {
+        put_current_cel_in_place(&current, current->line, 0);
+    }
+    for (int i = 0; i < board->size; i++) {
+        if (current->n_hints != 0 && current->col != cel->col)
+            for (int k = 0; k < current->n_hints; k++) {
+                if (*(current->hints + k) == number) return true;
+            }
+        current = current->east;
+    }
+    return false;
+}
+
+/***
+ * searches the other for a value that might be alone in the column. Making it the only solution for a cell
+ * @param cel
+ * @param number
+ * @return
+ */
+bool repeated_candidate_in_col(BOARD *board, CELL *cel, int number) {
+
+    CELL *current = cel;
+    int line = current->line;
+    if (line != 0) {
+        put_current_cel_in_place(&current, 0, current->col);
+    }
+    for (int i = 0; i < board->size; i++) {
+        if (current->n_hints != 0 && current->line != cel->line)
+            for (int k = 0; k < current->n_hints; k++) {
+                if (*(current->hints + k) == number) return true;
+            }
+        current = current->south;
+    }
     return false;
 }
 
@@ -107,33 +168,31 @@ void delete_same_in_other_cells_of_box_single(BOARD **board, CELL *cell) {
 
     BOARD *pBoard = *board;
     CELL *current = cell;
-    CELL *pline = current;
 
     int ci = current->first_col_box;
     int cf = current->last_col_box;
     int li = current->first_line_box;
     int lf = current->last_line_box;
     put_current_cel_in_place(&current, current->first_line_box, current->first_col_box);
+    CELL *pline = current;
     for (int i = li; i <= lf; i++) {
-        if (current != NULL) {
-            for (int j = ci; j <= cf; j++) {
-                if (current->n_hints != 0) {
-                    if (current->line != cell->line && current->col != cell->col) {
-                        for (int k = 0; k < current->n_hints; k++) {
+        for (int j = ci; j <= cf; j++) {
+            if (current->n_hints != 0) {
+                if (current->line != cell->line && current->col != cell->col) {
+                    for (int k = 0; k < current->n_hints; k++) {
 
-                            if (*(current->hints + k) == *(cell->hints) ||
-                                *(current->hints + k) == *(cell->hints + 1)) {
-                                delete_num_from_hints(&current, k);
-                            }
+                        if (*(current->hints + k) == cell->num) {
+                            delete_num_from_hints(&current, k);
                         }
                     }
                 }
-                current = current->east;
             }
-            pline = pline->south;
-            current = pline;
+            current = current->east;
         }
+        pline = pline->south;
+        current = pline;
     }
+
     *board = pBoard;
 }
 
@@ -150,13 +209,11 @@ void delete_same_in_other_cells_of_main_diagonal_single(BOARD **board, CELL *cel
 
     put_current_cel_in_place(&current, 0, 0);
     for (int i = 0; i < pBoard->size; i++) {
-
         if (current->n_hints != 0) {
             if (current->line != cell->line && current->col != cell->col) {
                 for (int k = 0; k < current->n_hints; k++) {
 
-                    if (*(current->hints + k) == *(cell->hints) ||
-                        *(current->hints + k) == *(cell->hints + 1)) {
+                    if (*(current->hints + k) == cell->num) {
                         delete_num_from_hints(&current, k);
                     }
                 }
@@ -179,16 +236,11 @@ void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD **board, CELL
     CELL *current = cell;
 
     put_current_cel_in_place(&current, 0, pBoard->size - 1);
-    for (int i = 0; i <= pBoard->size; i++) {
-
+    for (int i = 0; i < pBoard->size; i++) {
         if (current->n_hints != 0) {
-
-
             if (current->line != cell->line && current->col != cell->col) {
                 for (int k = 0; k < current->n_hints; k++) {
-
-                    if (*(current->hints + k) == *(cell->hints) ||
-                        *(current->hints + k) == *(cell->hints + 1)) {
+                    if (*(current->hints + k) == cell->num) {
                         delete_num_from_hints(&current, k);
 
                     }
@@ -213,13 +265,11 @@ void delete_same_in_other_cells_of_line_single(BOARD **board, CELL *cell) {
 
     put_current_cel_in_place(&current, current->line, 0);
     for (int i = 0; i <= pBoard->size - 1; i++) {
-
         if (current->n_hints != 0) {
             if (current->line == cell->line && current->col != cell->col) {
                 for (int k = 0; k < current->n_hints; k++) {
 
-                    if (*(current->hints + k) == *(cell->hints) ||
-                        *(current->hints + k) == *(cell->hints + 1)) {
+                    if (*(current->hints + k) == cell->num) {
                         delete_num_from_hints(&current, k);
 
                     }
@@ -251,8 +301,7 @@ void delete_same_in_other_cells_of_col_single(BOARD **board, CELL *cell) {
             if (current->line != cell->line && current->col == cell->col) {
                 for (int k = 0; k < current->n_hints; k++) {
 
-                    if (*(current->hints + k) == *(cell->hints) ||
-                        *(current->hints + k) == *(cell->hints + 1)) {
+                    if (*(current->hints + k) == cell->num) {
                         delete_num_from_hints(&current, k);
 
                     }
