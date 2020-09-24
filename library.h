@@ -37,7 +37,6 @@ typedef struct cell {
     struct cell *south;
     struct cell *south_west;
     struct cell *west;
-    struct cell *north_west;
 } CELL;
 
 typedef struct board {
@@ -46,11 +45,10 @@ typedef struct board {
     struct board *next;
 } BOARD;
 
-typedef struct linkedBoards {
-    BOARD *head;
-    BOARD *current;
+typedef struct linkedlist{
+    BOARD * head;
     int size;
-} BOARDS;
+}BOARDS;
 
 
 /***
@@ -91,7 +89,7 @@ int no_repeated_num_in_main_diagonal(CELL *, BOARD *, int);
 
 int no_repeated_num_in_secondary_diagonal(CELL *, BOARD *, int);
 
-int add_node_to_Boards(BOARDS *, BOARD *);
+void add_node_to_Boards(BOARDS *, BOARD *);
 
 void put_current_cel_in_place(CELL **, int, int);
 
@@ -217,9 +215,6 @@ void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD **, CELL *);
 void delete_same_in_other_cells_of_line_single(BOARD **, CELL *);
 
 void delete_same_in_other_cells_of_col_single(BOARD **, CELL *);
-
-
-void delete_num_from_hints(CELL **, int);
 
 /******* hidden pairs strategy *******/
 

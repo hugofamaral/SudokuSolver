@@ -5,12 +5,12 @@
 
 
 void tests(void) {
-    //tests_R1(); // board creation by random or by files
-    //tests_R4(); // brute forcing boards
-    //tests_R8();
-    //tests_R9();
-    //tests_R10();
-    //tests_R12();
+    tests_R1(); // board creation by random or by files
+    tests_R4(); // brute forcing boards
+    tests_R8();
+    tests_R9();
+    tests_R10();
+    tests_R12();
     tests_R13();
 }
 
@@ -36,7 +36,7 @@ void test_R1_b() {
 }
 
 void tests_R4() {
-    //test_R4_a_1();
+    test_R4_a_1();
     test_R4_a_2();
 }
 
@@ -116,17 +116,18 @@ void tests_R9() {
 }
 
 void tests_R10() {
-    int *size;
-    int i = 0;
     BOARDS boards = read_boards_from_txt_and_load_memory_linked(
             "C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
-    boards.current = boards.head;
-    while (i < boards.size) {
-        print_board_linked(boards.current);
-        boards.current = boards.current->next;
-        i++;
-    }
-}
+    BOARD * board = boards.head;
+    while (board != NULL){
+        if (strategy_solving(board)) {
+            print_board_linked(board);
+        } else {
+            printf("\nUnsolvable ");
+            print_board_linked(board);
+        }
+        board = board->next;
+}}
 
 void tests_R12() {
     BOARD board = read_boards_from_txt_linked("C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");

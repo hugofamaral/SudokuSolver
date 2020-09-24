@@ -222,9 +222,9 @@ int **read_boards(FILE *handler, int size) {
 
 /*******************R9**********************/
 
-void init_linked_board(BOARD *board){
+void init_linked_board(BOARD *board) {
 
-    int n = (int)sqrt(board->size);
+    int n = (int) sqrt(board->size);
     CELL *current = malloc(sizeof(CELL)), *prevLine, *prevCol;
     board->pfirst = current;
     prevCol = board->pfirst;
@@ -238,13 +238,13 @@ void init_linked_board(BOARD *board){
                 current->main_diagonal = 1;
                 current->secondary_diagonal = 0;
                 current->num = 0;
-                current->n_hints=0;
-                current->first_line_box = line -(line % n);
+                current->n_hints = 0;
+                current->first_line_box = line - (line % n);
                 current->first_col_box = col - (col % n);
-                current->last_line_box = current->first_line_box + (n-1);
-                current->last_col_box = current->first_col_box + (n-1);
+                current->last_line_box = current->first_line_box + (n - 1);
+                current->last_col_box = current->first_col_box + (n - 1);
 
-                current->line= line;
+                current->line = line;
                 current->col = col;
                 current->north = NULL;
                 current->north_east = NULL;
@@ -253,18 +253,17 @@ void init_linked_board(BOARD *board){
                 current->south = malloc(sizeof(CELL));
                 current->south_west = NULL;
                 current->west = NULL;
-                current->north_west = NULL;
             }
             if (line == 0 && col != 0 && col != board->size - 1) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 0;
                 current->num = 0;
-                current->n_hints=0;
-                current->first_line_box = line -(line % n);
+                current->n_hints = 0;
+                current->first_line_box = line - (line % n);
                 current->first_col_box = col - (col % n);
-                current->last_line_box = current->first_line_box + (n-1);
-                current->last_col_box = current->first_col_box + (n-1);
-                current->line= line;
+                current->last_line_box = current->first_line_box + (n - 1);
+                current->last_col_box = current->first_col_box + (n - 1);
+                current->line = line;
                 current->col = col;
                 current->north = NULL;
                 current->north_east = NULL;
@@ -273,18 +272,17 @@ void init_linked_board(BOARD *board){
                 current->south = prevCol->south_east;
                 current->south_west = prevCol->south;
                 current->west = prevCol;
-                current->north_west = NULL;
             }
             if (line == 0 && col == board->size - 1) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 1;
                 current->num = 0;
-                current->n_hints=0;
-                current->first_line_box = line -(line % n);
+                current->n_hints = 0;
+                current->first_line_box = line - (line % n);
                 current->first_col_box = col - (col % n);
-                current->last_line_box = current->first_line_box + (n-1);
-                current->last_col_box = current->first_col_box + (n-1);
-                current->line= line;
+                current->last_line_box = current->first_line_box + (n - 1);
+                current->last_col_box = current->first_col_box + (n - 1);
+                current->line = line;
                 current->col = col;
                 current->north = NULL;
                 current->north_east = NULL;
@@ -293,18 +291,17 @@ void init_linked_board(BOARD *board){
                 current->south = prevCol->south_east;
                 current->south_west = prevCol->south;
                 current->west = prevCol;
-                current->north_west = NULL;
             }
             if (line != 0 && col == 0 && line != board->size - 1) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 0;
                 current->num = 0;
-                current->n_hints=0;
-                current->first_line_box = line -(line % n);
+                current->n_hints = 0;
+                current->first_line_box = line - (line % n);
                 current->first_col_box = col - (col % n);
-                current->last_line_box = current->first_line_box + (n-1);
-                current->last_col_box = current->first_col_box + (n-1);
-                current->line= line;
+                current->last_line_box = current->first_line_box + (n - 1);
+                current->last_col_box = current->first_col_box + (n - 1);
+                current->line = line;
                 current->col = col;
                 current->north = prevLine;
                 current->north_east = prevLine->east;
@@ -313,24 +310,23 @@ void init_linked_board(BOARD *board){
                 current->south = malloc(sizeof(CELL));
                 current->south_west = NULL;
                 current->west = NULL;
-                current->north_west = NULL;
             }
             if (line != 0 && col != 0 && col != board->size - 1) {
-                if(line == col) {
+                if (line == col) {
                     current->main_diagonal = 1;
-                }else { current->main_diagonal = 0;}
+                } else { current->main_diagonal = 0; }
 
-                if(line == board->size - 1 - col) {
+                if (line == board->size - 1 - col) {
                     current->secondary_diagonal = 1;
-                }else{ current->secondary_diagonal = 0;}
+                } else { current->secondary_diagonal = 0; }
 
                 current->num = 0;
-                current->n_hints=0;
-                current->first_line_box = line -(line % n);
+                current->n_hints = 0;
+                current->first_line_box = line - (line % n);
                 current->first_col_box = col - (col % n);
-                current->last_line_box = current->first_line_box + (n-1);
-                current->last_col_box = current->first_col_box + (n-1);
-                current->line= line;
+                current->last_line_box = current->first_line_box + (n - 1);
+                current->last_col_box = current->first_col_box + (n - 1);
+                current->line = line;
                 current->col = col;
                 current->north = prevCol->north_east;
                 current->north_east = prevCol->north_east->east;
@@ -339,18 +335,17 @@ void init_linked_board(BOARD *board){
                 current->south = prevCol->south_east;
                 current->south_west = prevCol->south;
                 current->west = prevCol;
-                current->north_west = prevCol->north;
             }
-            if (line != 0 && col != 0 && col == board->size - 1 ) {
+            if (line != 0 && col != 0 && col == board->size - 1) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 0;
                 current->num = 0;
-                current->n_hints=0;
-                current->first_line_box = line -(line % n);
+                current->n_hints = 0;
+                current->first_line_box = line - (line % n);
                 current->first_col_box = col - (col % n);
-                current->last_line_box = current->first_line_box + (n-1);
-                current->last_col_box = current->first_col_box + (n-1);
-                current->line= line;
+                current->last_line_box = current->first_line_box + (n - 1);
+                current->last_col_box = current->first_col_box + (n - 1);
+                current->line = line;
                 current->col = col;
                 current->north = prevCol->north_east;
                 current->north_east = NULL;
@@ -359,18 +354,17 @@ void init_linked_board(BOARD *board){
                 current->south = prevCol->south_east;
                 current->south_west = prevCol->south;
                 current->west = prevCol;
-                current->north_west = prevCol->north;
             }
             if (line == board->size - 1 && col == 0) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 1;
                 current->num = 0;
-                current->n_hints=0;
-                current->first_line_box = line -(line % n);
+                current->n_hints = 0;
+                current->first_line_box = line - (line % n);
                 current->first_col_box = col - (col % n);
-                current->last_line_box = current->first_line_box + (n-1);
-                current->last_col_box = current->first_col_box + (n-1);
-                current->line= line;
+                current->last_line_box = current->first_line_box + (n - 1);
+                current->last_col_box = current->first_col_box + (n - 1);
+                current->line = line;
                 current->col = col;
                 current->north = prevLine;
                 current->north_east = prevLine->east;
@@ -379,18 +373,17 @@ void init_linked_board(BOARD *board){
                 current->south = NULL;
                 current->south_west = NULL;
                 current->west = NULL;
-                current->north_west = NULL;
             }
             if (line == board->size - 1 && col != 0 && col != board->size - 1) {
                 current->main_diagonal = 0;
                 current->secondary_diagonal = 0;
                 current->num = 0;
-                current->n_hints=0;
-                current->first_line_box = line -(line % n);
+                current->n_hints = 0;
+                current->first_line_box = line - (line % n);
                 current->first_col_box = col - (col % n);
-                current->last_line_box = current->first_line_box + (n-1);
-                current->last_col_box = current->first_col_box + (n-1);
-                current->line= line;
+                current->last_line_box = current->first_line_box + (n - 1);
+                current->last_col_box = current->first_col_box + (n - 1);
+                current->line = line;
                 current->col = col;
                 current->north = prevCol->north_east;
                 current->north_east = prevCol->north_east->east;
@@ -399,18 +392,17 @@ void init_linked_board(BOARD *board){
                 current->south = NULL;
                 current->south_west = NULL;
                 current->west = prevCol;
-                current->north_west = prevCol->north;
             }
             if (line == board->size - 1 && col != 0 && col == board->size - 1) {
                 current->main_diagonal = 1;
                 current->secondary_diagonal = 0;
                 current->num = 0;
-                current->n_hints=0;
-                current->first_line_box = line -(line % n);
+                current->n_hints = 0;
+                current->first_line_box = line - (line % n);
                 current->first_col_box = col - (col % n);
-                current->last_line_box = current->first_line_box + (n-1);
-                current->last_col_box = current->first_col_box + (n-1);
-                current->line= line;
+                current->last_line_box = current->first_line_box + (n - 1);
+                current->last_col_box = current->first_col_box + (n - 1);
+                current->line = line;
                 current->col = col;
                 current->north = prevCol->north_east;
                 current->north_east = NULL;
@@ -419,7 +411,6 @@ void init_linked_board(BOARD *board){
                 current->south = NULL;
                 current->south_west = NULL;
                 current->west = prevCol;
-                current->north_west = prevCol->north;
             }
             prevCol = current;
             current = current->east;
@@ -470,12 +461,13 @@ BOARDS read_boards_from_txt_and_load_memory_linked(char string[]) {
     while (i != number_of_boards) {
         fscanf(handler, "%d", &size_board);
 
-        BOARD board = {size_board, NULL};
-        init_linked_board(&board);
+        BOARD *board = malloc(sizeof(BOARD));
+        board->size = size_board;
+        init_linked_board(board);
         pointer_board = read_boards(handler, size_board);
 
-        fill_board_linked(&board, pointer_board);
-        add_node_to_Boards(boards, &board);
+        fill_board_linked(board, pointer_board);
+        add_node_to_Boards(boards, board);
         i++;
         free(pointer_board);
     }
@@ -531,30 +523,42 @@ void print_board_linked(BOARD *board) {
     }
 }
 
-int add_node_to_Boards(BOARDS *boards, BOARD *board) {
+void add_node_to_Boards(BOARDS *boards, BOARD *board) {
 
-    if (boards->head == NULL) {
+    if ((boards == NULL) || (board == NULL)) {
+        return;
+    }
+    board->next = NULL;
+    if (boards->size == 0) {
         boards->head = board;
         boards->head->next = NULL;
-        return 1;
-    } else {
-        boards->head->next = boards->head;
-        boards->head = board;
+        boards->head->size = board->size;
+        boards->head->pfirst = board->pfirst;
+        boards->size++;
+        return;
     }
+    BOARD * current = boards->head;
+    while (current->next != NULL)
+    {
+        current = current->next;
+    }
+    current->next = board;
+    current->next->size = board->size;
+    current->next->pfirst = board->pfirst;
     boards->size++;
-    return 1;
 }
 
 BOARDS *init_boards() {
-    BOARDS *queue = (BOARDS *) malloc(sizeof(BOARDS));
-    if (queue == NULL) {
+    BOARDS *pLinkedlist = (BOARDS *) malloc(sizeof (BOARDS));
+    if (pLinkedlist == NULL) {
         return NULL;
     }
 
-    queue->size = 0;
-    queue->head = NULL;
+    pLinkedlist->size = 0;
+    pLinkedlist->head = NULL;
+    pLinkedlist->head = NULL;
 
-    return queue;
+    return pLinkedlist;
 }
 
 void find_mask(BOARD *board) {
@@ -603,10 +607,10 @@ void print_mask(BOARD *board) {
             if (current->num != 0) {
                 printf("Number: %d ", current->num);
             } else {
-                printf("Number of possibilities: %d: ",current->n_hints);
+                printf("Number of possibilities: %d: ", current->n_hints);
 
                 for (int k = 0; k < current->n_hints; k++) {
-                    printf("%d ", *(current->hints+ k));
+                    printf("%d ", *(current->hints + k));
 
                 }
             }

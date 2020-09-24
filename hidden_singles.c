@@ -55,7 +55,6 @@ bool single_candidate_in_box_for_cel(BOARD *board) {
                     if (!repeated_candidate_in_box(current, *(current->hints + k)) ||
                         !repeated_candidate_in_line(board, current, *(current->hints + k)) ||
                         !repeated_candidate_in_col(board, current, *(current->hints + k))) {
-                        print_mask(board);
                         current->num = *(current->hints + k);
                         delete_same_in_other_cells_of_box_single(&board, current);
                         if (current->main_diagonal)
