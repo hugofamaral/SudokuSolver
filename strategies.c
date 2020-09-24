@@ -8,7 +8,7 @@ bool strategy_solving(BOARD *board) {
     CELL *current = board->pfirst;
     int updates, loops = 0;
     find_mask(board);
-    print_board_linked(board);
+    print_mask(board);
     while (!complete(board,
                      &current)) { //will continue searching for updates until none are found. which will then brute force the solution
         updates = 0;

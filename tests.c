@@ -5,13 +5,13 @@
 
 
 void tests(void) {
-    tests_R1(); // board creation by random or by files
-    tests_R4(); // brute forcing boards
-    tests_R8();
-    tests_R9();
-    tests_R10();
-    tests_R12();
-    tests_R13();
+    //tests_R1(); // board creation by random or by files
+    //tests_R4(); // brute forcing boards
+    //tests_R8(); // save solutions to files
+    tests_R9(); // read 1 board from file
+    tests_R10(); // read boards an load memory
+    //tests_R12(); // brute force linked board
+    //tests_R13(); // solve board through strats
 }
 
 void tests_R1() {
