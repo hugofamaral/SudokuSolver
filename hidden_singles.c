@@ -44,7 +44,7 @@ bool single_candidate_in_cel(BOARD *board) {
  * @param board
  * @return
  */
-bool single_candidate_in_box_for_cel(BOARD *board) {
+bool single_hidden_candidate_for_cel(BOARD *board) {
 
     CELL *current = board->pfirst;
     CELL *pline = current;
@@ -54,7 +54,11 @@ bool single_candidate_in_box_for_cel(BOARD *board) {
                 for (int k = 0; k < current->n_hints; k++) {
                     if (!repeated_candidate_in_box(current, *(current->hints + k)) ||
                         !repeated_candidate_in_line(board, current, *(current->hints + k)) ||
-                        !repeated_candidate_in_col(board, current, *(current->hints + k))) {
+                        !repeated_candidate_in_col(board, current, *(current->hints + k)) ||
+                        (current->main_diagonal &&
+                         !repeated_candidate_in_main_diag(board, current, *(current->hints + k))) ||
+                        (current->secondary_diagonal &&
+                         !repeated_candidate_in_second_diag(board, current, *(current->hints + k)))) {
                         current->num = *(current->hints + k);
                         delete_same_in_other_cells_of_box_single(&board, current);
                         if (current->main_diagonal)
@@ -153,6 +157,40 @@ bool repeated_candidate_in_col(BOARD *board, CELL *cel, int number) {
                 if (*(current->hints + k) == number) return true;
             }
         current = current->south;
+    }
+    return false;
+}
+
+bool repeated_candidate_in_main_diag(BOARD *board, CELL *cel, int number) {
+
+    CELL *current = cel;
+    int line = current->line;
+    if (line != 0) {
+        put_current_cel_in_place(&current, 0, 0);
+    }
+    for (int i = 0; i < board->size; i++) {
+        if (current->n_hints != 0 && current->line != cel->line)
+            for (int k = 0; k < current->n_hints; k++) {
+                if (*(current->hints + k) == number) return true;
+            }
+        current = current->south_east;
+    }
+    return false;
+}
+
+bool repeated_candidate_in_second_diag(BOARD *board, CELL *cel, int number) {
+
+    CELL *current = cel;
+    int line = current->line;
+    if (line != 0) {
+        put_current_cel_in_place(&current, 0, board->size - 1);
+    }
+    for (int i = 0; i < board->size; i++) {
+        if (current->n_hints != 0 && current->line != cel->line)
+            for (int k = 0; k < current->n_hints; k++) {
+                if (*(current->hints + k) == number) return true;
+            }
+        current = current->south_west;
     }
     return false;
 }

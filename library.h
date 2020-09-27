@@ -198,13 +198,17 @@ void print_mask(BOARD *);
 
 bool single_candidate_in_cel(BOARD *);
 
-bool single_candidate_in_box_for_cel(BOARD *);
+bool single_hidden_candidate_for_cel(BOARD *);
 
 bool repeated_candidate_in_box(CELL *, int);
 
 bool repeated_candidate_in_line(BOARD *, CELL *, int);
 
 bool repeated_candidate_in_col(BOARD *, CELL *, int);
+
+bool repeated_candidate_in_main_diag(BOARD *board, CELL *cel, int number);
+
+bool repeated_candidate_in_second_diag(BOARD *board, CELL *cel, int number);
 
 void delete_same_in_other_cells_of_box_single(BOARD **, CELL *);
 
@@ -226,15 +230,15 @@ CELL *find_second_pair(BOARD *, CELL *);
 
 CELL *find_second_triple(BOARD *, CELL *);
 
-void delete_same_in_other_cells_of_box(BOARD **, CELL *, CELL *,CELL *);
+bool delete_same_in_other_cells_of_box(BOARD **, CELL *, CELL *,CELL *);
 
-void delete_same_in_other_cells_of_main_diagonal(BOARD **, CELL *, CELL *,CELL *);
+bool delete_same_in_other_cells_of_main_diagonal(BOARD **, CELL *, CELL *,CELL *);
 
-void delete_same_in_other_cells_of_secondary_diagonal(BOARD **, CELL *, CELL *,CELL *);
+bool delete_same_in_other_cells_of_secondary_diagonal(BOARD **, CELL *, CELL *,CELL *);
 
-void delete_same_in_other_cells_of_line(BOARD **, CELL *, CELL *,CELL *);
+bool delete_same_in_other_cells_of_line(BOARD **, CELL *, CELL *,CELL *);
 
-void delete_same_in_other_cells_of_col(BOARD **, CELL *, CELL *,CELL *);
+bool delete_same_in_other_cells_of_col(BOARD **, CELL *, CELL *,CELL *);
 
 CELL * return_most_hints(CELL * first,CELL * second,CELL * third);
 

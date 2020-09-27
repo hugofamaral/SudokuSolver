@@ -26,27 +26,28 @@ bool naked_pairs(BOARD *board) {
                 if (second_pair != NULL) {
                     if (first_pair->first_line_box == second_pair->first_line_box &&
                         first_pair->first_col_box == second_pair->first_col_box) {
-                        updated++;
-                        delete_same_in_other_cells_of_box(&board, first_pair, second_pair, NULL);
+                        if (delete_same_in_other_cells_of_box(&board, first_pair, second_pair, NULL))
+                            updated++;
                     }
                     if (first_pair->main_diagonal == true && second_pair->main_diagonal == true) {
-                        updated++;
-                        delete_same_in_other_cells_of_main_diagonal(&board, first_pair, second_pair, NULL);
+                        if (delete_same_in_other_cells_of_main_diagonal(&board, first_pair, second_pair, NULL))
+                            updated++;
                     }
                     if (first_pair->secondary_diagonal == true && second_pair->secondary_diagonal == true) {
-                        updated++;
-                        delete_same_in_other_cells_of_secondary_diagonal(&board, first_pair, second_pair, NULL);
+                        if (delete_same_in_other_cells_of_secondary_diagonal(&board, first_pair, second_pair, NULL))
+                            updated++;
                     }
                     if (first_pair->line == second_pair->line) {
-                        updated++;
-                        delete_same_in_other_cells_of_line(&board, first_pair, second_pair, NULL);
+                        if (delete_same_in_other_cells_of_line(&board, first_pair, second_pair, NULL))
+                            updated++;
                     }
                     if (first_pair->col == second_pair->col) {
-                        updated++;
-                        delete_same_in_other_cells_of_col(&board, first_pair, second_pair, NULL);
+                        if (delete_same_in_other_cells_of_col(&board, first_pair, second_pair, NULL))
+                            updated++;
                     }
-                    printf("Naked pair at [%d][%d]-[%d][%d]-> %d and %d\n\n", first_pair->line, first_pair->col,
-                           second_pair->line, second_pair->col, *(first_pair->hints), *(first_pair->hints + 1));
+                    if (updated > 0)
+                        printf("Naked pair at [%d][%d]-[%d][%d]-> %d and %d\n\n", first_pair->line, first_pair->col,
+                               second_pair->line, second_pair->col, *(first_pair->hints), *(first_pair->hints + 1));
                 }
             }
             current = current->east;
@@ -82,34 +83,39 @@ bool naked_triples(BOARD *board) {
                         if (first_triple->first_line_box == second_triple->first_line_box &&
                             first_triple->first_col_box == second_triple->first_col_box &&
                             first_triple->first_col_box == third_triple->first_col_box) {
-                            updated++;
-                            delete_same_in_other_cells_of_box(&board, first_triple, second_triple, third_triple);
+
+                            if (delete_same_in_other_cells_of_box(&board, first_triple, second_triple, third_triple))
+                                updated++;
                         }
                         if (first_triple->main_diagonal && second_triple->main_diagonal &&
                             third_triple->main_diagonal) {
-                            updated++;
-                            delete_same_in_other_cells_of_main_diagonal(&board, first_triple, second_triple,
-                                                                        third_triple);
+                            if (delete_same_in_other_cells_of_main_diagonal(&board, first_triple, second_triple,
+                                                                            third_triple))
+                                updated++;
                         }
                         if (first_triple->secondary_diagonal && second_triple->secondary_diagonal &&
                             third_triple->secondary_diagonal) {
-                            updated++;
-                            delete_same_in_other_cells_of_secondary_diagonal(&board, first_triple, second_triple,
-                                                                             third_triple);
+
+                            if (delete_same_in_other_cells_of_secondary_diagonal(&board, first_triple, second_triple,
+                                                                                 third_triple))
+                                updated++;
                         }
                         if (first_triple->line == second_triple->line && first_triple->line == third_triple->line) {
-                            updated++;
-                            delete_same_in_other_cells_of_line(&board, first_triple, second_triple, third_triple);
+
+                            if (delete_same_in_other_cells_of_line(&board, first_triple, second_triple, third_triple))
+                                updated++;
                         }
                         if (first_triple->col == second_triple->col && first_triple->col == third_triple->col) {
-                            updated++;
-                            delete_same_in_other_cells_of_col(&board, first_triple, second_triple, third_triple);
+
+                            if (delete_same_in_other_cells_of_col(&board, first_triple, second_triple, third_triple))
+                                updated++;
                         }
                         CELL *hints = return_most_hints(first_triple, second_triple, third_triple);
-                        printf("Naked triple at [%d][%d]-[%d][%d]-[%d][%d]-> %d, %d and %d\n\n", first_triple->line,
-                               first_triple->col,
-                               second_triple->line, second_triple->col, third_triple->line, third_triple->col,
-                               *(hints->hints), *(hints->hints + 1), *(hints->hints + 2));
+                        if (updated > 0)
+                            printf("Naked triple at [%d][%d]-[%d][%d]-[%d][%d]-> %d, %d and %d\n\n", first_triple->line,
+                                   first_triple->col,
+                                   second_triple->line, second_triple->col, third_triple->line, third_triple->col,
+                                   *(hints->hints), *(hints->hints + 1), *(hints->hints + 2));
                     }
                 }
             }
@@ -117,7 +123,6 @@ bool naked_triples(BOARD *board) {
         }
         pline = pline->south;
         current = pline;
-
     }
     if (updated != 0) {
         return true;
@@ -131,12 +136,13 @@ bool naked_triples(BOARD *board) {
  * @param first_pair
  * @param second_pair
  */
-void delete_same_in_other_cells_of_box(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
+bool delete_same_in_other_cells_of_box(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
     BOARD *pBoard = *board;
     CELL *current = first_pair;
     put_current_cel_in_place(&current, current->first_line_box, current->first_col_box);
     CELL *pline = current;
+    bool deleted = false;
 
     int ci = current->first_col_box;
     int cf = current->last_col_box;
@@ -155,6 +161,7 @@ void delete_same_in_other_cells_of_box(BOARD **board, CELL *first_pair, CELL *se
                                     *(current->hints + k) == *(hints->hints + 1) ||
                                     *(current->hints + k) == *(hints->hints + 2)) {
                                     delete_num_from_hints(&current, k);
+                                    deleted = true;
                                 }
                             }
                         }
@@ -163,6 +170,7 @@ void delete_same_in_other_cells_of_box(BOARD **board, CELL *first_pair, CELL *se
                             if (*(current->hints + k) == *(first_pair->hints) ||
                                 *(current->hints + k) == *(first_pair->hints + 1)) {
                                 delete_num_from_hints(&current, k);
+                                deleted = true;
                             }
                         }
 
@@ -175,6 +183,7 @@ void delete_same_in_other_cells_of_box(BOARD **board, CELL *first_pair, CELL *se
         current = pline;
     }
     *board = pBoard;
+    return deleted;
 }
 
 CELL *return_most_hints(CELL *first, CELL *second, CELL *third) {
@@ -192,10 +201,11 @@ CELL *return_most_hints(CELL *first, CELL *second, CELL *third) {
  * @param first_pair
  * @param second_pair
  */
-void delete_same_in_other_cells_of_main_diagonal(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
+bool delete_same_in_other_cells_of_main_diagonal(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
     BOARD *pBoard = *board;
     CELL *current = first_pair;
+    bool deleted = false;
 
     put_current_cel_in_place(&current, 0, 0);
     for (int i = 0; i < pBoard->size; i++) {
@@ -210,14 +220,16 @@ void delete_same_in_other_cells_of_main_diagonal(BOARD **board, CELL *first_pair
                                 *(current->hints + k) == *(hints->hints + 1) ||
                                 *(current->hints + k) == *(hints->hints + 2)) {
                                 delete_num_from_hints(&current, k);
+                                deleted = true;
                             }
                         }
                     }
-                }  else {
+                } else {
                     for (int k = 0; k < current->n_hints; k++) {
                         if (*(current->hints + k) == *(first_pair->hints) ||
                             *(current->hints + k) == *(first_pair->hints + 1)) {
                             delete_num_from_hints(&current, k);
+                            deleted = true;
                         }
                     }
                 }
@@ -227,6 +239,7 @@ void delete_same_in_other_cells_of_main_diagonal(BOARD **board, CELL *first_pair
         current = current->south_east;
     }
     *board = pBoard;
+    return deleted;
 }
 
 /***
@@ -235,11 +248,12 @@ void delete_same_in_other_cells_of_main_diagonal(BOARD **board, CELL *first_pair
  * @param first_pair
  * @param second_pair
  */
-void
+bool
 delete_same_in_other_cells_of_secondary_diagonal(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
     BOARD *pBoard = *board;
     CELL *current = first_pair;
+    bool deleted = false;
 
     put_current_cel_in_place(&current, 0, pBoard->size - 1);
     for (int i = 0; i <= pBoard->size; i++) {
@@ -255,14 +269,16 @@ delete_same_in_other_cells_of_secondary_diagonal(BOARD **board, CELL *first_pair
                                 *(current->hints + k) == *(hints->hints + 1) ||
                                 *(current->hints + k) == *(hints->hints + 2)) {
                                 delete_num_from_hints(&current, k);
+                                deleted = true;
                             }
                         }
                     }
-                }  else {
+                } else {
                     for (int k = 0; k < current->n_hints; k++) {
                         if (*(current->hints + k) == *(first_pair->hints) ||
                             *(current->hints + k) == *(first_pair->hints + 1)) {
                             delete_num_from_hints(&current, k);
+                            deleted = true;
                         }
                     }
                 }
@@ -272,6 +288,7 @@ delete_same_in_other_cells_of_secondary_diagonal(BOARD **board, CELL *first_pair
         current = current->south_west;
     }
     *board = pBoard;
+    return deleted;
 }
 
 /***
@@ -280,10 +297,11 @@ delete_same_in_other_cells_of_secondary_diagonal(BOARD **board, CELL *first_pair
  * @param first_pair
  * @param second_pair
  */
-void delete_same_in_other_cells_of_line(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
+bool delete_same_in_other_cells_of_line(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
     BOARD *pBoard = *board;
     CELL *current = first_pair;
+    bool deleted = false;
 
     put_current_cel_in_place(&current, current->line, 0);
     for (int i = 0; i <= pBoard->size - 1; i++) {
@@ -298,14 +316,16 @@ void delete_same_in_other_cells_of_line(BOARD **board, CELL *first_pair, CELL *s
                                 *(current->hints + k) == *(hints->hints + 1) ||
                                 *(current->hints + k) == *(hints->hints + 2)) {
                                 delete_num_from_hints(&current, k);
+                                deleted = true;
                             }
                         }
                     }
-                }  else {
+                } else {
                     for (int k = 0; k < current->n_hints; k++) {
                         if (*(current->hints + k) == *(first_pair->hints) ||
                             *(current->hints + k) == *(first_pair->hints + 1)) {
                             delete_num_from_hints(&current, k);
+                            deleted = true;
                         }
                     }
                 }
@@ -315,6 +335,7 @@ void delete_same_in_other_cells_of_line(BOARD **board, CELL *first_pair, CELL *s
         current = current->east;
     }
     *board = pBoard;
+    return deleted;
 }
 
 /***
@@ -323,10 +344,11 @@ void delete_same_in_other_cells_of_line(BOARD **board, CELL *first_pair, CELL *s
  * @param first_pair
  * @param second_pair
  */
-void delete_same_in_other_cells_of_col(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
+bool delete_same_in_other_cells_of_col(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
     BOARD *pBoard = *board;
     CELL *current = first_pair;
+    bool deleted = false;
 
     put_current_cel_in_place(&current, 0, current->col);
     for (int i = 0; i <= pBoard->size - 1; i++) {
@@ -341,14 +363,16 @@ void delete_same_in_other_cells_of_col(BOARD **board, CELL *first_pair, CELL *se
                                 *(current->hints + k) == *(hints->hints + 1) ||
                                 *(current->hints + k) == *(hints->hints + 2)) {
                                 delete_num_from_hints(&current, k);
+                                deleted = true;
                             }
                         }
                     }
-                }  else {
+                } else {
                     for (int k = 0; k < current->n_hints; k++) {
                         if (*(current->hints + k) == *(first_pair->hints) ||
                             *(current->hints + k) == *(first_pair->hints + 1)) {
                             delete_num_from_hints(&current, k);
+                            deleted = true;
                         }
                     }
                 }
@@ -358,6 +382,7 @@ void delete_same_in_other_cells_of_col(BOARD **board, CELL *first_pair, CELL *se
         current = current->south;
     }
     *board = pBoard;
+    return deleted;
 }
 
 /***
@@ -379,7 +404,8 @@ CELL *find_second_pair(BOARD *board, CELL *first_pair) {
         for (int j = current->col; j < board->size; j++) {
 
             if (current->n_hints == 2 && *(current->hints) == *(first_pair->hints) &&
-                *(current->hints + 1) == *(first_pair->hints + 1) && (current->line!=first_pair->line||current->col != first_pair->col)) {
+                *(current->hints + 1) == *(first_pair->hints + 1) &&
+                (current->line != first_pair->line || current->col != first_pair->col)) {
                 return current;
             }
             current = current->east;
@@ -392,7 +418,7 @@ CELL *find_second_pair(BOARD *board, CELL *first_pair) {
 
 CELL *find_second_triple(BOARD *board, CELL *first_pair) {
 
-    CELL *current = first_pair->east;
+    CELL *current = first_pair;
     if (first_pair->line == board->size - 1 && first_pair->col == board->size - 1)
         return NULL; //If it's in the last pair and it hasn't found the pair yet there is no need to find anything
     if (current == NULL)
@@ -402,17 +428,20 @@ CELL *find_second_triple(BOARD *board, CELL *first_pair) {
     for (int i = current->line; i < board->size; i++) {
         for (int j = current->col; j < board->size; j++) {
 
-            if (current->n_hints == 3 && first_pair->n_hints == 2) {
+            if (current->n_hints == 3 && first_pair->n_hints == 2 &&
+                (current->line != first_pair->line || current->col != first_pair->col)) {
                 if (*(current->hints) == *(first_pair->hints) && *(current->hints + 1) == *(first_pair->hints + 1) ||
                     *(current->hints) == *(first_pair->hints) && *(current->hints + 2) == *(first_pair->hints + 1) ||
                     *(current->hints + 1) == *(first_pair->hints) && *(current->hints + 2) == *(first_pair->hints + 1))
                     return current;
-            } else if (current->n_hints == 2 && first_pair->n_hints == 3) {
+            } else if (current->n_hints == 2 && first_pair->n_hints == 3 &&
+                       (current->line != first_pair->line || current->col != first_pair->col)) {
                 if (*(current->hints) == *(first_pair->hints) && *(current->hints + 1) == *(first_pair->hints + 1) ||
                     *(current->hints) == *(first_pair->hints) && *(current->hints + 1) == *(first_pair->hints + 2) ||
                     *(current->hints) == *(first_pair->hints + 1) && *(current->hints + 1) == *(first_pair->hints + 2))
                     return current;
-            } else if (current->n_hints == 3 && first_pair->n_hints == 3) {
+            } else if (current->n_hints == 3 && first_pair->n_hints == 3 &&
+                       (current->line != first_pair->line || current->col != first_pair->col)) {
                 if (*(current->hints) == *(first_pair->hints) && *(current->hints + 1) == *(first_pair->hints + 1) &&
                     *(current->hints + 2) == *(first_pair->hints + 2))
                     return current;
