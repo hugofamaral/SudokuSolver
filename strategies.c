@@ -24,7 +24,7 @@ bool strategy_solving(BOARD *board) {
                 loops = 0;
             }
         if (updates == 0)
-            if (naked_pairs(board)) {
+            if (naked_pairs(board)||naked_triples(board)) {
                 updates = 1;
                 loops++; //to avoid naked_pairs from finding the same pair over and over again.Since some boards require harder strategies
             }

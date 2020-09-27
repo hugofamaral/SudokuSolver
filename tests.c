@@ -8,14 +8,14 @@ void tests(void) {
     //tests_R1(); // board creation by random or by files
     //tests_R4(); // brute forcing boards
     //tests_R8(); // save solutions to files
-    tests_R9(); // read 1 board from file
-    tests_R10(); // read boards an load memory
+    //tests_R9(); // read 1 board from file
+    //tests_R10(); // read boards an load memory
     //tests_R12(); // brute force linked board
-    //tests_R13(); // solve board through strats
+    tests_R13(); // solve board through strats
 }
 
 void tests_R1() {
-    test_R1_a(); // create random board
+    //test_R1_a(); // create random board
     test_R1_b(); // get boards from file
 }
 
@@ -36,7 +36,7 @@ void test_R1_b() {
 }
 
 void tests_R4() {
-    test_R4_a_1();
+    //test_R4_a_1();
     test_R4_a_2();
 }
 
@@ -118,8 +118,8 @@ void tests_R9() {
 void tests_R10() {
     BOARDS boards = read_boards_from_txt_and_load_memory_linked(
             "C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
-    BOARD * board = boards.head;
-    while (board != NULL){
+    BOARD *board = boards.head;
+    while (board != NULL) {
         if (strategy_solving(board)) {
             print_board_linked(board);
         } else {
@@ -127,7 +127,8 @@ void tests_R10() {
             print_board_linked(board);
         }
         board = board->next;
-}}
+    }
+}
 
 void tests_R12() {
     BOARD board = read_boards_from_txt_linked("C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
@@ -140,11 +141,24 @@ void tests_R12() {
 }
 
 void tests_R13() {
+    /*
     BOARD board = read_boards_from_txt_linked("C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
     if (strategy_solving(&board))
         print_board_linked(&board);
     else {
         printf("\nUnsolvable ");
         print_board_linked(&board);
+    }*/
+    BOARDS boards = read_boards_from_txt_and_load_memory_linked(
+            "C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
+    BOARD *board = boards.head;
+    while (board != NULL) {
+        if (strategy_solving(board)) {
+            print_board_linked(board);
+        } else {
+            printf("\nUnsolvable ");
+            print_board_linked(board);
+        }
+        board = board->next;
     }
 }

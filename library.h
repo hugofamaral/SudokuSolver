@@ -220,17 +220,23 @@ void delete_same_in_other_cells_of_col_single(BOARD **, CELL *);
 
 bool naked_pairs(BOARD *);
 
+bool naked_triples(BOARD *);
+
 CELL *find_second_pair(BOARD *, CELL *);
 
-void delete_same_in_other_cells_of_box(BOARD **, CELL *, CELL *);
+CELL *find_second_triple(BOARD *, CELL *);
 
-void delete_same_in_other_cells_of_main_diagonal(BOARD **, CELL *, CELL *);
+void delete_same_in_other_cells_of_box(BOARD **, CELL *, CELL *,CELL *);
 
-void delete_same_in_other_cells_of_secondary_diagonal(BOARD **, CELL *, CELL *);
+void delete_same_in_other_cells_of_main_diagonal(BOARD **, CELL *, CELL *,CELL *);
 
-void delete_same_in_other_cells_of_line(BOARD **, CELL *, CELL *);
+void delete_same_in_other_cells_of_secondary_diagonal(BOARD **, CELL *, CELL *,CELL *);
 
-void delete_same_in_other_cells_of_col(BOARD **, CELL *, CELL *);
+void delete_same_in_other_cells_of_line(BOARD **, CELL *, CELL *,CELL *);
+
+void delete_same_in_other_cells_of_col(BOARD **, CELL *, CELL *,CELL *);
+
+CELL * return_most_hints(CELL * first,CELL * second,CELL * third);
 
 void delete_num_from_hints(CELL **, int);
 
