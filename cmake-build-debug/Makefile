@@ -332,6 +332,33 @@ naked_pairs.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/naked_pairs.c.s
 .PHONY : naked_pairs.c.s
 
+pointing_pairs.o: pointing_pairs.c.o
+
+.PHONY : pointing_pairs.o
+
+# target to build an object file
+pointing_pairs.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/pointing_pairs.c.o
+.PHONY : pointing_pairs.c.o
+
+pointing_pairs.i: pointing_pairs.c.i
+
+.PHONY : pointing_pairs.i
+
+# target to preprocess a source file
+pointing_pairs.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/pointing_pairs.c.i
+.PHONY : pointing_pairs.c.i
+
+pointing_pairs.s: pointing_pairs.c.s
+
+.PHONY : pointing_pairs.s
+
+# target to generate assembly for a file
+pointing_pairs.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/pointing_pairs.c.s
+.PHONY : pointing_pairs.c.s
+
 strategies.o: strategies.c.o
 
 .PHONY : strategies.o
@@ -416,6 +443,9 @@ help:
 	@echo "... naked_pairs.o"
 	@echo "... naked_pairs.i"
 	@echo "... naked_pairs.s"
+	@echo "... pointing_pairs.o"
+	@echo "... pointing_pairs.i"
+	@echo "... pointing_pairs.s"
 	@echo "... strategies.o"
 	@echo "... strategies.i"
 	@echo "... strategies.s"

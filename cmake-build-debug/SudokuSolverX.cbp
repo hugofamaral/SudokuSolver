@@ -98,6 +98,9 @@
 		<Unit filename="/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/naked_pairs.c">
 			<Option target="SudokuSolverX"/>
 		</Unit>
+		<Unit filename="/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/pointing_pairs.c">
+			<Option target="SudokuSolverX"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/strategies.c">
 			<Option target="SudokuSolverX"/>
 		</Unit>

@@ -220,7 +220,7 @@ void delete_same_in_other_cells_of_line_single(BOARD **, CELL *);
 
 void delete_same_in_other_cells_of_col_single(BOARD **, CELL *);
 
-/******* hidden pairs strategy *******/
+/******* hidden pairs/triples strategy *******/
 
 bool naked_pairs(BOARD *);
 
@@ -240,10 +240,23 @@ bool delete_same_in_other_cells_of_line(BOARD **, CELL *, CELL *,CELL *);
 
 bool delete_same_in_other_cells_of_col(BOARD **, CELL *, CELL *,CELL *);
 
-CELL * return_most_hints(CELL * first,CELL * second,CELL * third);
+CELL * return_most_hints(CELL * ,CELL * ,CELL *);
 
 void delete_num_from_hints(CELL **, int);
 
+/******* pointing pairs strategy *******/
+
+bool pointing_pairs (BOARD *);
+
+CELL * find_hint_in_line_box(CELL *,int);
+
+CELL * find_hint_in_col_box(CELL *,int);
+
+bool delete_pointing_in_other_cells_of_line(BOARD **, CELL *, CELL *,int);
+
+bool delete_pointing_in_other_cells_of_col(BOARD **, CELL *, CELL *,int);
+
+bool present_in_box(CELL *, CELL*,int);
 
 /******* functional testing *******/
 

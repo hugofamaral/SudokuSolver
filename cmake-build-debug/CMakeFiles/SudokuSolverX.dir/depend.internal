@@ -22,6 +22,9 @@ CMakeFiles/SudokuSolverX.dir/main.c.o
 CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/naked_pairs.c
+CMakeFiles/SudokuSolverX.dir/pointing_pairs.c.o
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/pointing_pairs.c
 CMakeFiles/SudokuSolverX.dir/strategies.c.o
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/strategies.c
