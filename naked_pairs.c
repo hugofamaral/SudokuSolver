@@ -81,6 +81,7 @@ bool naked_triples(BOARD *board) {
                     third_triple = find_third_triple(board, first_triple, second_triple);
                     if (third_triple != NULL) {
                         if (first_triple->first_line_box == second_triple->first_line_box &&
+                            first_triple->first_line_box == third_triple->first_line_box &&
                             first_triple->first_col_box == second_triple->first_col_box &&
                             first_triple->first_col_box == third_triple->first_col_box) {
                             if (delete_same_in_other_cells_of_box(first_triple, second_triple, third_triple))
@@ -94,7 +95,6 @@ bool naked_triples(BOARD *board) {
                         }
                         if (first_triple->secondary_diagonal && second_triple->secondary_diagonal &&
                             third_triple->secondary_diagonal) {
-
                             if (delete_same_in_other_cells_of_secondary_diagonal(board, first_triple, second_triple,
                                                                                  third_triple))
                                 updated++;
@@ -149,10 +149,9 @@ bool delete_same_in_other_cells_of_box(CELL *first_pair, CELL *second_pair, CELL
     for (int i = li; i <= lf; i++) {
         for (int j = ci; j <= cf; j++) {
             if (current->n_hints != 0) {
-                if ((current->line != first_pair->line || current->col != first_pair->col) &&
-                    (current->line != second_pair->line || current->col != second_pair->col)) {
+                if (current != first_pair && current != second_pair) {
                     if (third_pair != NULL) {
-                        if (current->line != third_pair->line || current->col != third_pair->col) {
+                        if (current != third_pair) {
                             CELL *hints = return_most_hints(first_pair, second_pair, third_pair);
                             for (int k = 0; k < current->n_hints; k++) {
                                 if (*(current->hints + k) == *(hints->hints) ||
@@ -206,10 +205,9 @@ bool delete_same_in_other_cells_of_main_diagonal(BOARD *board, CELL *first_pair,
     put_current_cel_in_place(&current, 0, 0);
     for (int i = 0; i < board->size; i++) {
         if (current->n_hints != 0) {
-            if ((current->line != first_pair->line || current->col != first_pair->col) &&
-                (current->line != second_pair->line || current->col != second_pair->col)) {
+            if (current != first_pair && current != second_pair) {
                 if (third_pair != NULL) {
-                    if (current->line != third_pair->line || current->col != third_pair->col) {
+                    if (current != third_pair) {
                         CELL *hints = return_most_hints(first_pair, second_pair, third_pair);
                         for (int k = 0; k < current->n_hints; k++) {
                             if (*(current->hints + k) == *(hints->hints) ||
@@ -253,10 +251,9 @@ delete_same_in_other_cells_of_secondary_diagonal(BOARD *board, CELL *first_pair,
     for (int i = 0; i <= board->size; i++) {
 
         if (current->n_hints != 0) {
-            if ((current->line != first_pair->line || current->col != first_pair->col) &&
-                (current->line != second_pair->line || current->col != second_pair->col)) {
+            if (current != first_pair && current != second_pair) {
                 if (third_pair != NULL) {
-                    if (current->line != third_pair->line || current->col != third_pair->col) {
+                    if (current != third_pair) {
                         CELL *hints = return_most_hints(first_pair, second_pair, third_pair);
                         for (int k = 0; k < current->n_hints; k++) {
                             if (*(current->hints + k) == *(hints->hints) ||
@@ -298,10 +295,9 @@ bool delete_same_in_other_cells_of_line(BOARD *board, CELL *first_pair, CELL *se
     put_current_cel_in_place(&current, current->line, 0);
     for (int i = 0; i <= board->size - 1; i++) {
         if (current->n_hints != 0) {
-            if ((current->line != first_pair->line || current->col != first_pair->col) &&
-                (current->line != second_pair->line || current->col != second_pair->col)) {
+            if (current != first_pair && current != second_pair) {
                 if (third_pair != NULL) {
-                    if (current->line != third_pair->line || current->col != third_pair->col) {
+                    if (current != third_pair) {
                         CELL *hints = return_most_hints(first_pair, second_pair, third_pair);
                         for (int k = 0; k < current->n_hints; k++) {
                             if (*(current->hints + k) == *(hints->hints) ||
@@ -343,10 +339,9 @@ bool delete_same_in_other_cells_of_col(BOARD *board, CELL *first_pair, CELL *sec
     put_current_cel_in_place(&current, 0, current->col);
     for (int i = 0; i <= board->size - 1; i++) {
         if (current->n_hints != 0) {
-            if ((current->line != first_pair->line || current->col != first_pair->col) &&
-                (current->line != second_pair->line || current->col != second_pair->col)) {
+            if (current != first_pair && current != second_pair) {
                 if (third_pair != NULL) {
-                    if (current->line != third_pair->line || current->col != third_pair->col) {
+                    if (current != third_pair) {
                         CELL *hints = return_most_hints(first_pair, second_pair, third_pair);
                         for (int k = 0; k < current->n_hints; k++) {
                             if (*(current->hints + k) == *(hints->hints) ||

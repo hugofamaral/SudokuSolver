@@ -7,10 +7,13 @@
 bool strategy_solving(BOARD *board) {
     CELL *current = board->pfirst;
     int updates;
+    printf("\n\n");
+    print_board_linked(board);
+    printf("\n\n");
     find_mask(board);
     print_mask(board);
-    while (!complete(board,
-                     &current)) { //will continue searching for updates until none are found. which will then brute force the solution
+    while (!complete(board, &current)) {
+        //will continue searching for updates until none are found. which will then brute force the solution
         updates = 0;
         if (single_candidate_in_cel(board)) //if there is only one possibility for a box it will be automatically placed
         {

@@ -48,7 +48,7 @@ bool pointing_pairs(BOARD *board) {
                     }
 
                     if (first_hint->secondary_diagonal) {
-                        second_hint = find_hint_in_secondary_diagonal(board, first_hint, *(first_hint->hints + k));
+                        second_hint = find_hint_in_secondary_diagonal(first_hint, *(first_hint->hints + k));
                         if (second_hint != NULL && !present_in_box(first_hint, second_hint, *(first_hint->hints + k))) {
                             if (delete_pointing_in_other_cells_of_secondary(board, first_hint, second_hint,
                                                                             *(first_hint->hints + k))) {
@@ -73,7 +73,7 @@ bool pointing_pairs(BOARD *board) {
 
 CELL *find_hint_in_line_box(CELL *first_hint, int hint) {
     CELL *current = first_hint;
-    put_current_cel_in_place(&current, first_hint->first_line_box, first_hint->first_col_box);
+    put_current_cel_in_place(&current, first_hint->line, first_hint->first_col_box);
 
     if (first_hint->line == first_hint->last_line_box)
         return NULL; //If it's in the last position of the box and it hasn't found the second hint yet there is no need to find anything
@@ -97,11 +97,7 @@ CELL *find_hint_in_line_box(CELL *first_hint, int hint) {
 
 CELL *find_hint_in_col_box(CELL *first_hint, int hint) {
     CELL *current = first_hint;
-    put_current_cel_in_place(&current, first_hint->first_line_box, first_hint->first_col_box);
-
-
-    if (first_hint->col == first_hint->last_col_box)
-        return NULL; //If it's in the last position of the box and it hasn't found the second hint yet there is no need to find anything
+    put_current_cel_in_place(&current, first_hint->first_line_box, first_hint->col);
 
     int ci = current->first_col_box;
     int cf = current->last_col_box;
@@ -122,11 +118,12 @@ CELL *find_hint_in_col_box(CELL *first_hint, int hint) {
 CELL *find_hint_in_main_diagonal(BOARD *board, CELL *first_hint, int hint) {
     CELL *current = board->pfirst;
 
-    for (int i = 0; i < board->size; i++) {
-        if (current->n_hints > 0) {
+    int ci = current->first_col_box;
+    int cf = current->last_col_box;
+    for (int j = ci; j <= cf; j++) {
+        if (current->n_hints > 0 && current->main_diagonal && current != first_hint) {
             for (int k = 0; k < current->n_hints; k++) {
-                if (first_hint->col != current->col && first_hint->line != current->line && current->main_diagonal &&
-                    hint == *(current->hints + k))
+                if (hint == *(current->hints + k))
                     return current;
             }
         }
@@ -135,16 +132,16 @@ CELL *find_hint_in_main_diagonal(BOARD *board, CELL *first_hint, int hint) {
     return NULL;
 }
 
-CELL *find_hint_in_secondary_diagonal(BOARD *board, CELL *first_hint, int hint) {
-    CELL *current = board->pfirst;
+CELL *find_hint_in_secondary_diagonal(CELL *first_hint, int hint) {
+    CELL *current = first_hint;
+    put_current_cel_in_place(&current, first_hint->first_line_box, first_hint->last_col_box);
 
-    put_current_cel_in_place(&current, 0, board->size - 1);
-    for (int i = 0; i < board->size; i++) {
-        if (current->n_hints > 0) {
+    int ci = current->first_col_box;
+    int cf = current->last_col_box;
+    for (int j = ci; j <= cf; j++) {
+        if (current->n_hints > 0 && current->secondary_diagonal && current != first_hint) {
             for (int k = 0; k < current->n_hints; k++) {
-                if (first_hint->col != current->col && first_hint->line != current->line &&
-                    current->secondary_diagonal &&
-                    hint == *(current->hints + k))
+                if (hint == *(current->hints + k))
                     return current;
             }
         }
@@ -166,11 +163,13 @@ bool present_in_box(CELL *first_hint, CELL *second_hint, int hint) {
         for (int j = ci; j <= cf; j++) {
             if (current->n_hints > 0) {
                 for (int k = 0; k < current->n_hints; k++) {
-                    if ((first_hint->line != current->line && second_hint->line != current->line &&
-                         hint == *(current->hints + k)) ||
-                        (first_hint->col != current->col && second_hint->col != current->col &&
-                         hint == *(current->hints + k)))
-                        return true;
+                    if (current != first_hint && current != second_hint && *(current->hints + k) == hint)
+                        if ((current->line != first_hint->line && first_hint->line == second_hint->line) ||
+                            (current->col != first_hint->col && first_hint->col == second_hint->col) ||
+                            (!current->main_diagonal && first_hint->main_diagonal && second_hint->main_diagonal) ||
+                            (!current->secondary_diagonal && first_hint->secondary_diagonal &&
+                             second_hint->secondary_diagonal))
+                            return true;
                 }
             }
             current = current->east;

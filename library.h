@@ -256,7 +256,7 @@ CELL *find_hint_in_col_box(CELL *, int);
 
 CELL *find_hint_in_main_diagonal(BOARD *,CELL *, int);
 
-CELL *find_hint_in_secondary_diagonal(BOARD *,CELL *, int);
+CELL *find_hint_in_secondary_diagonal(CELL *, int);
 
 bool delete_pointing_in_other_cells_of_line(BOARD *, CELL *, CELL *, int);
 
