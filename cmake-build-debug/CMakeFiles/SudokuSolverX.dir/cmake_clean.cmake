@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/SudokuSolverX.dir/Consistency.c.o"
   "CMakeFiles/SudokuSolverX.dir/FileManip.c.o"
   "CMakeFiles/SudokuSolverX.dir/Helpers.c.o"
+  "CMakeFiles/SudokuSolverX.dir/box_reduction.c.o"
   "CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o"
   "CMakeFiles/SudokuSolverX.dir/main.c.o"
   "CMakeFiles/SudokuSolverX.dir/naked_pairs.c.o"

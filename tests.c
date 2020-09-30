@@ -153,6 +153,7 @@ void tests_R13() {
             "C:\\Users\\hugod\\CLionProjects\\SudokuSolverX\\boards.txt");
     BOARD *board = boards.head;
     while (board != NULL) {
+        print_board_linked(board);
         if (strategy_solving(board)) {
             print_board_linked(board);
         } else {

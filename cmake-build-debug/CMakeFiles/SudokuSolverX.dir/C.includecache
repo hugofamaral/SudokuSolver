@@ -6,26 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/BruteForce.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Consistency.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/FileManip.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Helpers.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/hidden_singles.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
 /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
 stdio.h
 -
@@ -44,23 +24,7 @@ stdio.h
 stdbool.h
 -
 
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/main.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
 /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/naked_pairs.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/pointing_pairs.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/strategies.c
-library.h
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
-
-/cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/tests.c
 library.h
 /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
 

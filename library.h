@@ -45,10 +45,10 @@ typedef struct board {
     struct board *next;
 } BOARD;
 
-typedef struct linkedlist{
-    BOARD * head;
+typedef struct linkedlist {
+    BOARD *head;
     int size;
-}BOARDS;
+} BOARDS;
 
 
 /***
@@ -210,15 +210,15 @@ bool repeated_candidate_in_main_diag(BOARD *board, CELL *cel, int number);
 
 bool repeated_candidate_in_second_diag(BOARD *board, CELL *cel, int number);
 
-void delete_same_in_other_cells_of_box_single(BOARD **, CELL *);
+void delete_same_in_other_cells_of_box_single(BOARD *, CELL *);
 
-void delete_same_in_other_cells_of_main_diagonal_single(BOARD **, CELL *);
+void delete_same_in_other_cells_of_main_diagonal_single(BOARD *, CELL *);
 
-void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD **, CELL *);
+void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD *, CELL *);
 
-void delete_same_in_other_cells_of_line_single(BOARD **, CELL *);
+void delete_same_in_other_cells_of_line_single(BOARD *, CELL *);
 
-void delete_same_in_other_cells_of_col_single(BOARD **, CELL *);
+void delete_same_in_other_cells_of_col_single(BOARD *, CELL *);
 
 /******* hidden pairs/triples strategy *******/
 
@@ -230,33 +230,54 @@ CELL *find_second_pair(BOARD *, CELL *);
 
 CELL *find_second_triple(BOARD *, CELL *);
 
-bool delete_same_in_other_cells_of_box(BOARD **, CELL *, CELL *,CELL *);
+CELL * find_third_triple(BOARD*,CELL *,CELL *);
 
-bool delete_same_in_other_cells_of_main_diagonal(BOARD **, CELL *, CELL *,CELL *);
+bool delete_same_in_other_cells_of_box( CELL *, CELL *, CELL *);
 
-bool delete_same_in_other_cells_of_secondary_diagonal(BOARD **, CELL *, CELL *,CELL *);
+bool delete_same_in_other_cells_of_main_diagonal(BOARD *, CELL *, CELL *, CELL *);
 
-bool delete_same_in_other_cells_of_line(BOARD **, CELL *, CELL *,CELL *);
+bool delete_same_in_other_cells_of_secondary_diagonal(BOARD *, CELL *, CELL *, CELL *);
 
-bool delete_same_in_other_cells_of_col(BOARD **, CELL *, CELL *,CELL *);
+bool delete_same_in_other_cells_of_line(BOARD *, CELL *, CELL *, CELL *);
 
-CELL * return_most_hints(CELL * ,CELL * ,CELL *);
+bool delete_same_in_other_cells_of_col(BOARD *, CELL *, CELL *, CELL *);
+
+CELL *return_most_hints(CELL *, CELL *, CELL *);
 
 void delete_num_from_hints(CELL **, int);
 
 /******* pointing pairs strategy *******/
 
-bool pointing_pairs (BOARD *);
+bool pointing_pairs(BOARD *);
 
-CELL * find_hint_in_line_box(CELL *,int);
+CELL *find_hint_in_line_box(CELL *, int);
 
-CELL * find_hint_in_col_box(CELL *,int);
+CELL *find_hint_in_col_box(CELL *, int);
 
-bool delete_pointing_in_other_cells_of_line(BOARD **, CELL *, CELL *,int);
+CELL *find_hint_in_main_diagonal(BOARD *,CELL *, int);
 
-bool delete_pointing_in_other_cells_of_col(BOARD **, CELL *, CELL *,int);
+CELL *find_hint_in_secondary_diagonal(BOARD *,CELL *, int);
 
-bool present_in_box(CELL *, CELL*,int);
+bool delete_pointing_in_other_cells_of_line(BOARD *, CELL *, CELL *, int);
+
+bool delete_pointing_in_other_cells_of_col(BOARD *, CELL *, CELL *, int);
+
+bool delete_pointing_in_other_cells_of_main(BOARD *, CELL *, CELL *, int);
+
+bool delete_pointing_in_other_cells_of_secondary(BOARD *, CELL *, CELL *, int);
+
+bool present_in_box(CELL *, CELL *, int);
+
+/******* box reduction strategy *******/
+
+bool box_reduction(BOARD *board);
+
+bool repeated_candidate_in_line_outside_box(BOARD *, CELL *, int);
+
+bool repeated_candidate_in_col_outside_box(BOARD *, CELL *, int);
+
+bool delete_in_other_cells_of_box(CELL*,CELL*, int);
+
 
 /******* functional testing *******/
 

@@ -18,13 +18,13 @@ bool single_candidate_in_cel(BOARD *board) {
         for (int j = 0; j < board->size; j++) {
             if (current->n_hints == 1) {
                 current->num = *(current->hints);
-                delete_same_in_other_cells_of_box_single(&board, current);
+                delete_same_in_other_cells_of_box_single(board, current);
                 if (current->main_diagonal)
-                    delete_same_in_other_cells_of_main_diagonal_single(&board, current);
+                    delete_same_in_other_cells_of_main_diagonal_single(board, current);
                 if (current->secondary_diagonal)
-                    delete_same_in_other_cells_of_secondary_diagonal_single(&board, current);
-                delete_same_in_other_cells_of_line_single(&board, current);
-                delete_same_in_other_cells_of_col_single(&board, current);
+                    delete_same_in_other_cells_of_secondary_diagonal_single(board, current);
+                delete_same_in_other_cells_of_line_single(board, current);
+                delete_same_in_other_cells_of_col_single(board, current);
                 current->n_hints = 0;
                 free(current->hints);
                 printf("Single solution on [%d,%d]->%d\n\n", current->line + 1, current->col + 1, current->num);
@@ -60,13 +60,13 @@ bool single_hidden_candidate_for_cel(BOARD *board) {
                         (current->secondary_diagonal &&
                          !repeated_candidate_in_second_diag(board, current, *(current->hints + k)))) {
                         current->num = *(current->hints + k);
-                        delete_same_in_other_cells_of_box_single(&board, current);
+                        delete_same_in_other_cells_of_box_single(board, current);
                         if (current->main_diagonal)
-                            delete_same_in_other_cells_of_main_diagonal_single(&board, current);
+                            delete_same_in_other_cells_of_main_diagonal_single(board, current);
                         if (current->secondary_diagonal)
-                            delete_same_in_other_cells_of_secondary_diagonal_single(&board, current);
-                        delete_same_in_other_cells_of_line_single(&board, current);
-                        delete_same_in_other_cells_of_col_single(&board, current);
+                            delete_same_in_other_cells_of_secondary_diagonal_single(board, current);
+                        delete_same_in_other_cells_of_line_single(board, current);
+                        delete_same_in_other_cells_of_col_single(board, current);
                         current->n_hints = 0;
                         free(current->hints);
                         printf("Hidden single solution on [%d,%d]->%d\n\n", current->line + 1, current->col + 1,
@@ -201,9 +201,8 @@ bool repeated_candidate_in_second_diag(BOARD *board, CELL *cel, int number) {
  * @param first_pair
  * @param second_pair
  */
-void delete_same_in_other_cells_of_box_single(BOARD **board, CELL *cell) {
+void delete_same_in_other_cells_of_box_single(BOARD *board, CELL *cell) {
 
-    BOARD *pBoard = *board;
     CELL *current = cell;
 
     int ci = current->first_col_box;
@@ -230,7 +229,6 @@ void delete_same_in_other_cells_of_box_single(BOARD **board, CELL *cell) {
         current = pline;
     }
 
-    *board = pBoard;
 }
 
 /***
@@ -239,13 +237,12 @@ void delete_same_in_other_cells_of_box_single(BOARD **board, CELL *cell) {
  * @param first_pair
  * @param second_pair
  */
-void delete_same_in_other_cells_of_main_diagonal_single(BOARD **board, CELL *cell) {
+void delete_same_in_other_cells_of_main_diagonal_single(BOARD *board, CELL *cell) {
 
-    BOARD *pBoard = *board;
     CELL *current = cell;
 
     put_current_cel_in_place(&current, 0, 0);
-    for (int i = 0; i < pBoard->size; i++) {
+    for (int i = 0; i < board->size; i++) {
         if (current->n_hints != 0) {
             if (current->line != cell->line && current->col != cell->col) {
                 for (int k = 0; k < current->n_hints; k++) {
@@ -258,7 +255,6 @@ void delete_same_in_other_cells_of_main_diagonal_single(BOARD **board, CELL *cel
         }
         current = current->south_east;
     }
-    *board = pBoard;
 }
 
 /***
@@ -267,13 +263,12 @@ void delete_same_in_other_cells_of_main_diagonal_single(BOARD **board, CELL *cel
  * @param cell
  * @param second_pair
  */
-void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD **board, CELL *cell) {
+void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD *board, CELL *cell) {
 
-    BOARD *pBoard = *board;
     CELL *current = cell;
 
-    put_current_cel_in_place(&current, 0, pBoard->size - 1);
-    for (int i = 0; i < pBoard->size; i++) {
+    put_current_cel_in_place(&current, 0, board->size - 1);
+    for (int i = 0; i < board->size; i++) {
         if (current->n_hints != 0) {
             if (current->line != cell->line && current->col != cell->col) {
                 for (int k = 0; k < current->n_hints; k++) {
@@ -286,7 +281,6 @@ void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD **board, CELL
         }
         current = current->south_west;
     }
-    *board = pBoard;
 }
 
 /***
@@ -295,13 +289,12 @@ void delete_same_in_other_cells_of_secondary_diagonal_single(BOARD **board, CELL
  * @param cell
  * @param second_pair
  */
-void delete_same_in_other_cells_of_line_single(BOARD **board, CELL *cell) {
+void delete_same_in_other_cells_of_line_single(BOARD *board, CELL *cell) {
 
-    BOARD *pBoard = *board;
     CELL *current = cell;
 
     put_current_cel_in_place(&current, current->line, 0);
-    for (int i = 0; i <= pBoard->size - 1; i++) {
+    for (int i = 0; i <= board->size - 1; i++) {
         if (current->n_hints != 0) {
             if (current->line == cell->line && current->col != cell->col) {
                 for (int k = 0; k < current->n_hints; k++) {
@@ -315,7 +308,6 @@ void delete_same_in_other_cells_of_line_single(BOARD **board, CELL *cell) {
         }
         current = current->east;
     }
-    *board = pBoard;
 }
 
 /***
@@ -324,13 +316,12 @@ void delete_same_in_other_cells_of_line_single(BOARD **board, CELL *cell) {
  * @param cell
  * @param second_pair
  */
-void delete_same_in_other_cells_of_col_single(BOARD **board, CELL *cell) {
+void delete_same_in_other_cells_of_col_single(BOARD *board, CELL *cell) {
 
-    BOARD *pBoard = *board;
     CELL *current = cell;
 
     put_current_cel_in_place(&current, 0, current->col);
-    for (int i = 0; i <= pBoard->size - 1; i++) {
+    for (int i = 0; i <= board->size - 1; i++) {
 
         if (current->n_hints != 0) {
 
@@ -347,5 +338,4 @@ void delete_same_in_other_cells_of_col_single(BOARD **board, CELL *cell) {
         }
         current = current->south;
     }
-    *board = pBoard;
 }

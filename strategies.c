@@ -21,14 +21,14 @@ bool strategy_solving(BOARD *board) {
             if (single_hidden_candidate_for_cel(board)) {
                 updates = 1;
             }
-        if (updates == 0)
-            if (naked_pairs(board)||naked_triples(board)) {
+        if (updates == 0) {
+            if (naked_pairs(board) || naked_triples(board)) {
                 updates = 1;
             }
-        if(updates == 0)
-            if(pointing_pairs(board)){
+        }
+        if (updates == 0)
+            if (pointing_pairs(board)) {
                 updates = 1;
-                print_mask(board);
             }
         if (complete(board, &current) == 1) return 1;
         if (updates == 0) {

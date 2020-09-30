@@ -13,6 +13,9 @@ CMakeFiles/SudokuSolverX.dir/FileManip.c.o
 CMakeFiles/SudokuSolverX.dir/Helpers.c.o
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/Helpers.c
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
+CMakeFiles/SudokuSolverX.dir/box_reduction.c.o
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/box_reduction.c
+ /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h
 CMakeFiles/SudokuSolverX.dir/hidden_singles.c.o
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/hidden_singles.c
  /cygdrive/c/Users/hugod/CLionProjects/SudokuSolverX/library.h

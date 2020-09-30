@@ -251,6 +251,33 @@ Helpers.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/Helpers.c.s
 .PHONY : Helpers.c.s
 
+box_reduction.o: box_reduction.c.o
+
+.PHONY : box_reduction.o
+
+# target to build an object file
+box_reduction.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/box_reduction.c.o
+.PHONY : box_reduction.c.o
+
+box_reduction.i: box_reduction.c.i
+
+.PHONY : box_reduction.i
+
+# target to preprocess a source file
+box_reduction.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/box_reduction.c.i
+.PHONY : box_reduction.c.i
+
+box_reduction.s: box_reduction.c.s
+
+.PHONY : box_reduction.s
+
+# target to generate assembly for a file
+box_reduction.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SudokuSolverX.dir/build.make CMakeFiles/SudokuSolverX.dir/box_reduction.c.s
+.PHONY : box_reduction.c.s
+
 hidden_singles.o: hidden_singles.c.o
 
 .PHONY : hidden_singles.o
@@ -434,6 +461,9 @@ help:
 	@echo "... Helpers.o"
 	@echo "... Helpers.i"
 	@echo "... Helpers.s"
+	@echo "... box_reduction.o"
+	@echo "... box_reduction.i"
+	@echo "... box_reduction.s"
 	@echo "... hidden_singles.o"
 	@echo "... hidden_singles.i"
 	@echo "... hidden_singles.s"

@@ -16,7 +16,7 @@ bool pointing_pairs(BOARD *board) {
                 for (int k = 0; k < first_hint->n_hints; k++) {
                     second_hint = find_hint_in_line_box(first_hint, *(first_hint->hints + k));
                     if (second_hint != NULL && !present_in_box(first_hint, second_hint, *(first_hint->hints + k))) {
-                        if (delete_pointing_in_other_cells_of_line(&board, first_hint, second_hint,
+                        if (delete_pointing_in_other_cells_of_line(board, first_hint, second_hint,
                                                                    *(first_hint->hints + k))) {
                             printf("Pointing pair in line -[%d][%d]-[%d][%d]-> %d\n\n", first_hint->line,
                                    first_hint->col,
@@ -26,12 +26,37 @@ bool pointing_pairs(BOARD *board) {
                     }
                     second_hint = find_hint_in_col_box(first_hint, *(first_hint->hints + k));
                     if (second_hint != NULL && !present_in_box(first_hint, second_hint, *(first_hint->hints + k))) {
-                        if (delete_pointing_in_other_cells_of_col(&board, first_hint, second_hint,
+                        if (delete_pointing_in_other_cells_of_col(board, first_hint, second_hint,
                                                                   *(first_hint->hints + k))) {
                             printf("Pointing pair in col -[%d][%d]-[%d][%d]-> %d\n\n", first_hint->line,
                                    first_hint->col,
-                                   second_hint->line, second_hint->col, *(first_hint->hints));
+                                   second_hint->line, second_hint->col, *(first_hint->hints + k));
                             updated = 1;
+                        }
+                    }
+                    if (first_hint->main_diagonal) {
+                        second_hint = find_hint_in_main_diagonal(board, first_hint, *(first_hint->hints + k));
+                        if (second_hint != NULL && !present_in_box(first_hint, second_hint, *(first_hint->hints + k))) {
+                            if (delete_pointing_in_other_cells_of_main(board, first_hint, second_hint,
+                                                                       *(first_hint->hints + k))) {
+                                printf("Pointing pair in main diagonal -[%d][%d]-[%d][%d]-> %d\n\n", first_hint->line,
+                                       first_hint->col,
+                                       second_hint->line, second_hint->col, *(first_hint->hints + k));
+                                updated = 1;
+                            }
+                        }
+                    }
+
+                    if (first_hint->secondary_diagonal) {
+                        second_hint = find_hint_in_secondary_diagonal(board, first_hint, *(first_hint->hints + k));
+                        if (second_hint != NULL && !present_in_box(first_hint, second_hint, *(first_hint->hints + k))) {
+                            if (delete_pointing_in_other_cells_of_secondary(board, first_hint, second_hint,
+                                                                            *(first_hint->hints + k))) {
+                                printf("Pointing pair in secondary diagonal -[%d][%d]-[%d][%d]-> %d\n\n",
+                                       first_hint->line,
+                                       first_hint->col, second_hint->line, second_hint->col, *(first_hint->hints + k));
+                                updated = 1;
+                            }
                         }
                     }
                 }
@@ -94,6 +119,40 @@ CELL *find_hint_in_col_box(CELL *first_hint, int hint) {
     return NULL;
 }
 
+CELL *find_hint_in_main_diagonal(BOARD *board, CELL *first_hint, int hint) {
+    CELL *current = board->pfirst;
+
+    for (int i = 0; i < board->size; i++) {
+        if (current->n_hints > 0) {
+            for (int k = 0; k < current->n_hints; k++) {
+                if (first_hint->col != current->col && first_hint->line != current->line && current->main_diagonal &&
+                    hint == *(current->hints + k))
+                    return current;
+            }
+        }
+        current = current->south_east;
+    }
+    return NULL;
+}
+
+CELL *find_hint_in_secondary_diagonal(BOARD *board, CELL *first_hint, int hint) {
+    CELL *current = board->pfirst;
+
+    put_current_cel_in_place(&current, 0, board->size - 1);
+    for (int i = 0; i < board->size; i++) {
+        if (current->n_hints > 0) {
+            for (int k = 0; k < current->n_hints; k++) {
+                if (first_hint->col != current->col && first_hint->line != current->line &&
+                    current->secondary_diagonal &&
+                    hint == *(current->hints + k))
+                    return current;
+            }
+        }
+        current = current->south_west;
+    }
+    return NULL;
+}
+
 bool present_in_box(CELL *first_hint, CELL *second_hint, int hint) {
     CELL *current = first_hint;
     put_current_cel_in_place(&current, first_hint->first_line_box, first_hint->first_col_box);
@@ -122,17 +181,16 @@ bool present_in_box(CELL *first_hint, CELL *second_hint, int hint) {
     return false;
 }
 
-bool delete_pointing_in_other_cells_of_line(BOARD **board, CELL *first_pair, CELL *second_pair, int hint) {
+bool delete_pointing_in_other_cells_of_line(BOARD *board, CELL *first_hint, CELL *second_hint, int hint) {
 
-    BOARD *pBoard = *board;
-    CELL *current = first_pair;
+    CELL *current = first_hint;
     bool deleted = false;
 
     put_current_cel_in_place(&current, current->line, 0);
-    for (int i = 0; i <= pBoard->size - 1; i++) {
+    for (int i = 0; i < board->size; i++) {
         if (current->n_hints != 0) {
-            if ((current->line != first_pair->line || current->col != first_pair->col) &&
-                (current->line != second_pair->line || current->col != second_pair->col)) {
+            if (current->col != first_hint->col && current->col != second_hint->col &&
+                current->first_col_box != first_hint->first_col_box) {
                 for (int k = 0; k < current->n_hints; k++) {
                     if (*(current->hints + k) == hint) {
                         delete_num_from_hints(&current, k);
@@ -143,27 +201,25 @@ bool delete_pointing_in_other_cells_of_line(BOARD **board, CELL *first_pair, CEL
         }
         current = current->east;
     }
-    *board = pBoard;
     return deleted;
 }
 
 /***
  * finds the pair in the same column and then deletes those hints from the other boxes
  * @param board
- * @param first_pair
- * @param second_pair
+ * @param first_hint
+ * @param second_hint
  */
-bool delete_pointing_in_other_cells_of_col(BOARD **board, CELL *first_pair, CELL *second_pair, int hint) {
+bool delete_pointing_in_other_cells_of_col(BOARD *board, CELL *first_hint, CELL *second_hint, int hint) {
 
-    BOARD *pBoard = *board;
-    CELL *current = first_pair;
+    CELL *current = first_hint;
     bool deleted = false;
 
     put_current_cel_in_place(&current, 0, current->col);
-    for (int i = 0; i <= pBoard->size - 1; i++) {
+    for (int i = 0; i < board->size; i++) {
         if (current->n_hints != 0) {
-            if ((current->line != first_pair->line || current->col != first_pair->col) &&
-                (current->line != second_pair->line || current->col != second_pair->col)) {
+            if (current->line != first_hint->line && current->line != second_hint->line &&
+                current->first_line_box != first_hint->first_line_box) {
                 for (int k = 0; k < current->n_hints; k++) {
                     if (*(current->hints + k) == hint) {
                         delete_num_from_hints(&current, k);
@@ -174,6 +230,50 @@ bool delete_pointing_in_other_cells_of_col(BOARD **board, CELL *first_pair, CELL
         }
         current = current->south;
     }
-    *board = pBoard;
+    return deleted;
+}
+
+bool delete_pointing_in_other_cells_of_main(BOARD *board, CELL *first_hint, CELL *second_hint, int hint) {
+    CELL *current = board->pfirst;
+    bool deleted = false;
+
+    for (int i = 0; i < board->size; i++) {
+        if (current->n_hints != 0) {
+            if ((current->line != first_hint->line || current->col != first_hint->col) &&
+                (current->line != second_hint->line || current->col != second_hint->col) && current->main_diagonal) {
+                for (int k = 0; k < current->n_hints; k++) {
+                    if (*(current->hints + k) == hint) {
+                        delete_num_from_hints(&current, k);
+                        deleted = true;
+                    }
+                }
+            }
+        }
+        current = current->south_west;
+    }
+    return deleted;
+}
+
+bool delete_pointing_in_other_cells_of_secondary(BOARD *board, CELL *first_hint, CELL *second_hint, int hint) {
+    CELL *current = board->pfirst;
+    bool deleted = false;
+
+    put_current_cel_in_place(&current, 0, board->size - 1);
+
+    for (int i = 0; i < board->size; i++) {
+        if (current->n_hints != 0) {
+            if ((current->line != first_hint->line || current->col != first_hint->col) &&
+                (current->line != second_hint->line || current->col != second_hint->col) &&
+                current->secondary_diagonal) {
+                for (int k = 0; k < current->n_hints; k++) {
+                    if (*(current->hints + k) == hint) {
+                        delete_num_from_hints(&current, k);
+                        deleted = true;
+                    }
+                }
+            }
+        }
+        current = current->south_west;
+    }
     return deleted;
 }

@@ -26,23 +26,23 @@ bool naked_pairs(BOARD *board) {
                 if (second_pair != NULL) {
                     if (first_pair->first_line_box == second_pair->first_line_box &&
                         first_pair->first_col_box == second_pair->first_col_box) {
-                        if (delete_same_in_other_cells_of_box(&board, first_pair, second_pair, NULL))
+                        if (delete_same_in_other_cells_of_box(first_pair, second_pair, NULL))
                             updated++;
                     }
                     if (first_pair->main_diagonal == true && second_pair->main_diagonal == true) {
-                        if (delete_same_in_other_cells_of_main_diagonal(&board, first_pair, second_pair, NULL))
+                        if (delete_same_in_other_cells_of_main_diagonal(board, first_pair, second_pair, NULL))
                             updated++;
                     }
                     if (first_pair->secondary_diagonal == true && second_pair->secondary_diagonal == true) {
-                        if (delete_same_in_other_cells_of_secondary_diagonal(&board, first_pair, second_pair, NULL))
+                        if (delete_same_in_other_cells_of_secondary_diagonal(board, first_pair, second_pair, NULL))
                             updated++;
                     }
                     if (first_pair->line == second_pair->line) {
-                        if (delete_same_in_other_cells_of_line(&board, first_pair, second_pair, NULL))
+                        if (delete_same_in_other_cells_of_line(board, first_pair, second_pair, NULL))
                             updated++;
                     }
                     if (first_pair->col == second_pair->col) {
-                        if (delete_same_in_other_cells_of_col(&board, first_pair, second_pair, NULL))
+                        if (delete_same_in_other_cells_of_col(board, first_pair, second_pair, NULL))
                             updated++;
                     }
                     if (updated > 0)
@@ -83,31 +83,30 @@ bool naked_triples(BOARD *board) {
                         if (first_triple->first_line_box == second_triple->first_line_box &&
                             first_triple->first_col_box == second_triple->first_col_box &&
                             first_triple->first_col_box == third_triple->first_col_box) {
-
-                            if (delete_same_in_other_cells_of_box(&board, first_triple, second_triple, third_triple))
+                            if (delete_same_in_other_cells_of_box(first_triple, second_triple, third_triple))
                                 updated++;
                         }
                         if (first_triple->main_diagonal && second_triple->main_diagonal &&
                             third_triple->main_diagonal) {
-                            if (delete_same_in_other_cells_of_main_diagonal(&board, first_triple, second_triple,
+                            if (delete_same_in_other_cells_of_main_diagonal(board, first_triple, second_triple,
                                                                             third_triple))
                                 updated++;
                         }
                         if (first_triple->secondary_diagonal && second_triple->secondary_diagonal &&
                             third_triple->secondary_diagonal) {
 
-                            if (delete_same_in_other_cells_of_secondary_diagonal(&board, first_triple, second_triple,
+                            if (delete_same_in_other_cells_of_secondary_diagonal(board, first_triple, second_triple,
                                                                                  third_triple))
                                 updated++;
                         }
                         if (first_triple->line == second_triple->line && first_triple->line == third_triple->line) {
 
-                            if (delete_same_in_other_cells_of_line(&board, first_triple, second_triple, third_triple))
+                            if (delete_same_in_other_cells_of_line(board, first_triple, second_triple, third_triple))
                                 updated++;
                         }
                         if (first_triple->col == second_triple->col && first_triple->col == third_triple->col) {
 
-                            if (delete_same_in_other_cells_of_col(&board, first_triple, second_triple, third_triple))
+                            if (delete_same_in_other_cells_of_col(board, first_triple, second_triple, third_triple))
                                 updated++;
                         }
                         CELL *hints = return_most_hints(first_triple, second_triple, third_triple);
@@ -136,9 +135,8 @@ bool naked_triples(BOARD *board) {
  * @param first_pair
  * @param second_pair
  */
-bool delete_same_in_other_cells_of_box(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
+bool delete_same_in_other_cells_of_box(CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
-    BOARD *pBoard = *board;
     CELL *current = first_pair;
     put_current_cel_in_place(&current, current->first_line_box, current->first_col_box);
     CELL *pline = current;
@@ -182,7 +180,6 @@ bool delete_same_in_other_cells_of_box(BOARD **board, CELL *first_pair, CELL *se
         pline = pline->south;
         current = pline;
     }
-    *board = pBoard;
     return deleted;
 }
 
@@ -201,14 +198,13 @@ CELL *return_most_hints(CELL *first, CELL *second, CELL *third) {
  * @param first_pair
  * @param second_pair
  */
-bool delete_same_in_other_cells_of_main_diagonal(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
+bool delete_same_in_other_cells_of_main_diagonal(BOARD *board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
-    BOARD *pBoard = *board;
     CELL *current = first_pair;
     bool deleted = false;
 
     put_current_cel_in_place(&current, 0, 0);
-    for (int i = 0; i < pBoard->size; i++) {
+    for (int i = 0; i < board->size; i++) {
         if (current->n_hints != 0) {
             if ((current->line != first_pair->line || current->col != first_pair->col) &&
                 (current->line != second_pair->line || current->col != second_pair->col)) {
@@ -238,7 +234,6 @@ bool delete_same_in_other_cells_of_main_diagonal(BOARD **board, CELL *first_pair
         }
         current = current->south_east;
     }
-    *board = pBoard;
     return deleted;
 }
 
@@ -249,14 +244,13 @@ bool delete_same_in_other_cells_of_main_diagonal(BOARD **board, CELL *first_pair
  * @param second_pair
  */
 bool
-delete_same_in_other_cells_of_secondary_diagonal(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
+delete_same_in_other_cells_of_secondary_diagonal(BOARD *board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
-    BOARD *pBoard = *board;
     CELL *current = first_pair;
     bool deleted = false;
 
-    put_current_cel_in_place(&current, 0, pBoard->size - 1);
-    for (int i = 0; i <= pBoard->size; i++) {
+    put_current_cel_in_place(&current, 0, board->size - 1);
+    for (int i = 0; i <= board->size; i++) {
 
         if (current->n_hints != 0) {
             if ((current->line != first_pair->line || current->col != first_pair->col) &&
@@ -287,7 +281,6 @@ delete_same_in_other_cells_of_secondary_diagonal(BOARD **board, CELL *first_pair
         }
         current = current->south_west;
     }
-    *board = pBoard;
     return deleted;
 }
 
@@ -297,14 +290,13 @@ delete_same_in_other_cells_of_secondary_diagonal(BOARD **board, CELL *first_pair
  * @param first_pair
  * @param second_pair
  */
-bool delete_same_in_other_cells_of_line(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
+bool delete_same_in_other_cells_of_line(BOARD *board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
-    BOARD *pBoard = *board;
     CELL *current = first_pair;
     bool deleted = false;
 
     put_current_cel_in_place(&current, current->line, 0);
-    for (int i = 0; i <= pBoard->size - 1; i++) {
+    for (int i = 0; i <= board->size - 1; i++) {
         if (current->n_hints != 0) {
             if ((current->line != first_pair->line || current->col != first_pair->col) &&
                 (current->line != second_pair->line || current->col != second_pair->col)) {
@@ -334,7 +326,6 @@ bool delete_same_in_other_cells_of_line(BOARD **board, CELL *first_pair, CELL *s
         }
         current = current->east;
     }
-    *board = pBoard;
     return deleted;
 }
 
@@ -344,14 +335,13 @@ bool delete_same_in_other_cells_of_line(BOARD **board, CELL *first_pair, CELL *s
  * @param first_pair
  * @param second_pair
  */
-bool delete_same_in_other_cells_of_col(BOARD **board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
+bool delete_same_in_other_cells_of_col(BOARD *board, CELL *first_pair, CELL *second_pair, CELL *third_pair) {
 
-    BOARD *pBoard = *board;
     CELL *current = first_pair;
     bool deleted = false;
 
     put_current_cel_in_place(&current, 0, current->col);
-    for (int i = 0; i <= pBoard->size - 1; i++) {
+    for (int i = 0; i <= board->size - 1; i++) {
         if (current->n_hints != 0) {
             if ((current->line != first_pair->line || current->col != first_pair->col) &&
                 (current->line != second_pair->line || current->col != second_pair->col)) {
@@ -381,7 +371,6 @@ bool delete_same_in_other_cells_of_col(BOARD **board, CELL *first_pair, CELL *se
         }
         current = current->south;
     }
-    *board = pBoard;
     return deleted;
 }
 
