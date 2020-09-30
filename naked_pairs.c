@@ -78,7 +78,7 @@ bool naked_triples(BOARD *board) {
                 first_triple = current;
                 second_triple = find_second_triple(board, first_triple);
                 if (second_triple != NULL) {
-                    third_triple = find_second_triple(board, second_triple);
+                    third_triple = find_third_triple(board, first_triple, second_triple);
                     if (third_triple != NULL) {
                         if (first_triple->first_line_box == second_triple->first_line_box &&
                             first_triple->first_col_box == second_triple->first_col_box &&
@@ -416,24 +416,68 @@ CELL *find_second_triple(BOARD *board, CELL *first_pair) {
 
     for (int i = current->line; i < board->size; i++) {
         for (int j = current->col; j < board->size; j++) {
+            if (current->n_hints > 0 && current != first_pair) {
+                if (current->n_hints == 3 && first_pair->n_hints == 2 &&
+                    (current->line != first_pair->line || current->col != first_pair->col)) {
+                    if (*(current->hints) == *(first_pair->hints) &&
+                        *(current->hints + 1) == *(first_pair->hints + 1) ||
+                        *(current->hints) == *(first_pair->hints) &&
+                        *(current->hints + 2) == *(first_pair->hints + 1) ||
+                        *(current->hints + 1) == *(first_pair->hints) &&
+                        *(current->hints + 2) == *(first_pair->hints + 1))
+                        return current;
+                } else if (current->n_hints == 2 && first_pair->n_hints == 3 &&
+                           (current->line != first_pair->line || current->col != first_pair->col)) {
+                    if (*(current->hints) == *(first_pair->hints) &&
+                        *(current->hints + 1) == *(first_pair->hints + 1) ||
+                        *(current->hints) == *(first_pair->hints) &&
+                        *(current->hints + 1) == *(first_pair->hints + 2) ||
+                        *(current->hints) == *(first_pair->hints + 1) &&
+                        *(current->hints + 1) == *(first_pair->hints + 2))
+                        return current;
+                } else if (current->n_hints == 3 && first_pair->n_hints == 3 &&
+                           (current->line != first_pair->line || current->col != first_pair->col)) {
+                    if (*(current->hints) == *(first_pair->hints) &&
+                        *(current->hints + 1) == *(first_pair->hints + 1) &&
+                        *(current->hints + 2) == *(first_pair->hints + 2))
+                        return current;
+                }
+            }
+            current = current->east;
+        }
+        pline = pline->south;
+        current = pline;
+    }
+    return NULL;
+}
 
-            if (current->n_hints == 3 && first_pair->n_hints == 2 &&
-                (current->line != first_pair->line || current->col != first_pair->col)) {
-                if (*(current->hints) == *(first_pair->hints) && *(current->hints + 1) == *(first_pair->hints + 1) ||
-                    *(current->hints) == *(first_pair->hints) && *(current->hints + 2) == *(first_pair->hints + 1) ||
-                    *(current->hints + 1) == *(first_pair->hints) && *(current->hints + 2) == *(first_pair->hints + 1))
-                    return current;
-            } else if (current->n_hints == 2 && first_pair->n_hints == 3 &&
-                       (current->line != first_pair->line || current->col != first_pair->col)) {
-                if (*(current->hints) == *(first_pair->hints) && *(current->hints + 1) == *(first_pair->hints + 1) ||
-                    *(current->hints) == *(first_pair->hints) && *(current->hints + 1) == *(first_pair->hints + 2) ||
-                    *(current->hints) == *(first_pair->hints + 1) && *(current->hints + 1) == *(first_pair->hints + 2))
-                    return current;
-            } else if (current->n_hints == 3 && first_pair->n_hints == 3 &&
-                       (current->line != first_pair->line || current->col != first_pair->col)) {
-                if (*(current->hints) == *(first_pair->hints) && *(current->hints + 1) == *(first_pair->hints + 1) &&
-                    *(current->hints + 2) == *(first_pair->hints + 2))
-                    return current;
+CELL *find_third_triple(BOARD *board, CELL *first_pair, CELL *second_pair) {
+
+    CELL *current = second_pair;
+    CELL *aux = first_pair->n_hints == 3 ? first_pair : second_pair;
+    if (first_pair->line == board->size - 1 && first_pair->col == board->size - 1)
+        return NULL; //If it's in the last pair and it hasn't found the pair yet there is no need to find anything
+    if (current == NULL)
+        current = first_pair->south;
+    CELL *pline = current;
+
+    for (int i = current->line; i < board->size; i++) {
+        for (int j = current->col; j < board->size; j++) {
+            if (current->n_hints > 0 && current != first_pair && current != second_pair) {
+                if (current->n_hints == 2) {
+                    if (*(current->hints) == *(aux->hints) &&
+                        *(current->hints + 1) == *(aux->hints + 1) ||
+                        *(current->hints) == *(aux->hints) &&
+                        *(current->hints + 1) == *(aux->hints + 2) ||
+                        *(current->hints) == *(aux->hints + 1) &&
+                        *(current->hints + 1) == *(aux->hints + 2))
+                        return current;
+                } else {
+                    if (*(current->hints) == *(first_pair->hints) &&
+                        *(current->hints + 1) == *(first_pair->hints + 1) &&
+                        *(current->hints + 2) == *(first_pair->hints + 2))
+                        return current;
+                }
             }
             current = current->east;
         }
